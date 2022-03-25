@@ -92,7 +92,7 @@ class _CalendarState extends State<Calendar> {
           child: Text(
             'John Doe',
             textAlign: TextAlign.end,
-            style: TextStyle(color: Colors.black),
+            style: TextStyle(color: Colors.grey[900]),
           ),
         ),
       ),
@@ -130,11 +130,11 @@ class _CalendarState extends State<Calendar> {
                 ),
                 timeSlotViewSettings: TimeSlotViewSettings(
                   timeFormat: 'h:mm a',
-                  timeIntervalHeight: 60,
+                  timeIntervalHeight: 80,
                   timeRulerSize: 100,
                   timeTextStyle: TextStyle(
                     fontSize: 16,
-                    color: Colors.black,
+                    color: Colors.grey[900],
                   ),
                 ),
                 cellBorderColor: Colors.transparent,
@@ -151,9 +151,10 @@ class _CalendarState extends State<Calendar> {
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
                     shape: BoxShape.rectangle),
                 appointmentTextStyle: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white,
+                ),
               ),
             )
           ],
