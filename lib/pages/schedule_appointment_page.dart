@@ -11,8 +11,6 @@ class ScheduleAppointmentPage extends StatefulWidget {
 }
 
 class _ScheduleAppointmentPageState extends State<ScheduleAppointmentPage> {
-  String test = "Test";
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,8 +36,7 @@ class _ScheduleAppointmentPageState extends State<ScheduleAppointmentPage> {
             Row(
               children: [
                 Text(
-                  // "Agendar Cita",
-                  test,
+                  "Agendar Cita",
                   textAlign: TextAlign.start,
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
