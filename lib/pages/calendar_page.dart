@@ -1,12 +1,15 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:proyecto_01/pages/schedule_appointment_page.dart';
+import 'package:proyecto_01/utilities/components/custom_appbar.dart';
+import 'package:proyecto_01/utilities/meeting.dart';
+import 'package:proyecto_01/utilities/meeting_data_source.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
-class Calendar extends StatefulWidget {
-  Calendar({Key? key}) : super(key: key);
+class CalendarPage extends StatefulWidget {
+  CalendarPage({Key? key}) : super(key: key);
 
   @override
-  State<Calendar> createState() => _CalendarState();
+  State<CalendarPage> createState() => _CalendarPageState();
 }
 
 List<Meeting> _getDataSource() {
@@ -31,70 +34,21 @@ List<Meeting> _getDataSource() {
   return meetings;
 }
 
-class MeetingDataSource extends CalendarDataSource {
-  MeetingDataSource(List<Meeting> source) {
-    appointments = source;
-  }
-
-  @override
-  DateTime getStartTime(int index) {
-    return appointments![index].from;
-  }
-
-  @override
-  DateTime getEndTime(int index) {
-    return appointments![index].to;
-  }
-
-  @override
-  String getSubject(int index) {
-    return appointments![index].eventName;
-  }
-
-  @override
-  Color getColor(int index) {
-    return appointments![index].background;
-  }
-
-  @override
-  String details(int index) {
-    return appointments![index].details;
-  }
-
-  @override
-  bool isAllDay(int index) {
-    return appointments![index].isAllDay;
-  }
-}
-
-class Meeting {
-  Meeting(this.eventName, this.from, this.to, this.background, this.details,
-      this.isAllDay);
-
-  String eventName;
-  DateTime from;
-  DateTime to;
-  Color background;
-  String details;
-  bool isAllDay;
-}
-
-class _CalendarState extends State<Calendar> {
+class _CalendarPageState extends State<CalendarPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 100,
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-        title: Padding(
-          padding: const EdgeInsets.fromLTRB(250, 0, 0, 0),
-          child: Text(
-            'John Doe',
-            textAlign: TextAlign.end,
-            style: TextStyle(color: Colors.grey[900]),
-          ),
-        ),
+      appBar: customAppBar,
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.calendar_month),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ScheduleAppointmentPage(),
+            ),
+          );
+        },
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(40, 0, 40, 40),

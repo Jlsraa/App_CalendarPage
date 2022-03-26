@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:proyecto_01/calendar.dart';
-import 'package:proyecto_01/calendarApointment.dart';
+import 'package:proyecto_01/pages/calendar_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -9,7 +8,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Material App',
-      home: Calendar(),
+      home: CalendarPage(),
     );
   }
 }
