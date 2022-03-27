@@ -25,6 +25,8 @@ class _PatientDetailState extends State<PatientDetail> {
                 padding: const EdgeInsets.fromLTRB(0, 30, 0, 30),
                 child: CircleAvatar(
                   backgroundColor: Colors.grey,
+                  backgroundImage:
+                      NetworkImage('https://source.unsplash.com/random'),
                   radius: 70,
                 ),
               ),
