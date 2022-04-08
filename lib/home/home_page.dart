@@ -12,17 +12,16 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentPageIndex = 0;
 
-  final _pagesNameList = [
-    "Home",
-    "Schedule",
-    "Appointmets",
-  ];
+  final _pagesNameList = ["Home", "Schedule", "Appointmets", "Patients"];
 
   final _pagesList = [
     CalendarPage(),
     ScheduleAppointmentPage(),
     Center(
       child: Text("Appointmets"),
+    ),
+    Center(
+      child: Text("Patients"),
     ),
   ];
 
@@ -55,6 +54,10 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(
             label: _pagesNameList[2],
             icon: Icon(Icons.schedule_rounded),
+          ),
+          BottomNavigationBarItem(
+            label: _pagesNameList[3],
+            icon: Icon(Icons.people_outline_outlined),
           ),
         ],
       ),
