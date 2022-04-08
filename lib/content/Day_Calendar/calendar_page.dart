@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:proyecto_01/pages/schedule_appointment_page.dart';
 import 'package:proyecto_01/utilities/components/custom_appbar.dart';
 import 'package:proyecto_01/utilities/meeting.dart';
 import 'package:proyecto_01/utilities/meeting_data_source.dart';

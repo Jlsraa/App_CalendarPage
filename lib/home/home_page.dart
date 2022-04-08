@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:proyecto_01/pages/calendar_page.dart';
-import 'package:proyecto_01/pages/schedule_appointment_page.dart';
+import '../content/Day_Calendar/calendar_page.dart';
+import '../content/schedule_appointment_page.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);

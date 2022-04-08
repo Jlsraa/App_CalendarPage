@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../utilities/components/custom_appbar.dart';
+import '../../utilities/components/custom_appbar.dart';
 
 class PatientDetail extends StatefulWidget {
   PatientDetail({Key? key}) : super(key: key);
