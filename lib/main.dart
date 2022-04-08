@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:proyecto_01/home/home_page.dart';
 import 'package:proyecto_01/pages/calendar_page.dart';
 import 'package:proyecto_01/pages/patient_info.dart';
 
@@ -8,8 +9,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Color.fromRGBO(106, 99, 242, 1),
+        ),
+      ),
       title: 'Material App',
-      home: CalendarPage(),
+      home: HomePage(),
     );
   }
 }

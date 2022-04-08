@@ -39,17 +39,6 @@ class _CalendarPageState extends State<CalendarPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppBar,
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.calendar_month),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ScheduleAppointmentPage(),
-            ),
-          );
-        },
-      ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(40, 0, 40, 40),
         child: Column(
@@ -60,7 +49,10 @@ class _CalendarPageState extends State<CalendarPage> {
                 Text(
                   "Bienvenido, John",
                   textAlign: TextAlign.start,
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87),
                 ),
               ],
             ),
@@ -68,15 +60,17 @@ class _CalendarPageState extends State<CalendarPage> {
               children: [
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 10, 10, 30),
-                  child: Text("Estas son sus consultas del día de hoy",
-                      textAlign: TextAlign.start,
-                      style: TextStyle(fontSize: 16)),
+                  child: Text(
+                    "Estas son sus consultas del día de hoy",
+                    textAlign: TextAlign.start,
+                    style: TextStyle(fontSize: 16, color: Colors.black54),
+                  ),
                 ),
               ],
             ),
             // Calendario
-            Container(
-              height: 500,
+            Expanded(
+              flex: 1,
               child: SfCalendar(
                 view: CalendarView.day,
                 dataSource: MeetingDataSource(
