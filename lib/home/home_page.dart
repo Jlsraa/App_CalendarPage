@@ -15,14 +15,14 @@ class _HomePageState extends State<HomePage> {
   final _pagesNameList = [
     "Home",
     "Schedule",
-    "Patients",
+    "Appointmets",
   ];
 
   final _pagesList = [
     CalendarPage(),
     ScheduleAppointmentPage(),
     Center(
-      child: Text("Patients"),
+      child: Text("Appointmets"),
     ),
   ];
 
@@ -46,15 +46,15 @@ class _HomePageState extends State<HomePage> {
         items: [
           BottomNavigationBarItem(
             label: _pagesNameList[0],
-            icon: Icon(Icons.home_filled),
+            icon: Icon(Icons.home_rounded),
           ),
           BottomNavigationBarItem(
             label: _pagesNameList[1],
-            icon: Icon(Icons.calendar_month),
+            icon: Icon(Icons.calendar_month_outlined),
           ),
           BottomNavigationBarItem(
             label: _pagesNameList[2],
-            icon: Icon(Icons.people),
+            icon: Icon(Icons.schedule_rounded),
           ),
         ],
       ),

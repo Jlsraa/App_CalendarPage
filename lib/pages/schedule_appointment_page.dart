@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:proyecto_01/utilities/constants.dart';
 
+import '../utilities/components/custom_appbar.dart';
+
 class ScheduleAppointmentPage extends StatefulWidget {
   ScheduleAppointmentPage({Key? key}) : super(key: key);
 
@@ -14,21 +16,7 @@ class _ScheduleAppointmentPageState extends State<ScheduleAppointmentPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            size: 32.0,
-            color: Colors.black,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        toolbarHeight: 100,
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-      ),
+      appBar: customAppBar,
       body: Padding(
         padding: const EdgeInsets.fromLTRB(40, 0, 40, 40),
         child: Column(
@@ -122,6 +110,12 @@ class _ScheduleAppointmentPageState extends State<ScheduleAppointmentPage> {
             ),
             TextField(
               decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.transparent),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.transparent),
+                ),
                 hintText: "Agregar notas",
                 filled: true,
                 fillColor: Color.fromARGB(255, 225, 234, 249),
