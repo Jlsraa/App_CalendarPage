@@ -18,12 +18,15 @@ AppBar customAppBar = AppBar(
     children: [
       Padding(
         padding: const EdgeInsets.only(right: 16.0),
-        child: Text(
-          'John Doe',
-          textAlign: TextAlign.end,
-          style: TextStyle(
-            color: Colors.grey[900],
-            fontWeight: FontWeight.w300,
+        child: TextButton(
+          onPressed: () {},
+          child: Text(
+            'John Doe',
+            textAlign: TextAlign.end,
+            style: TextStyle(
+              color: Colors.grey[900],
+              fontWeight: FontWeight.w300,
+            ),
           ),
         ),
       ),

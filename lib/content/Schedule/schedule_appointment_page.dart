@@ -94,7 +94,7 @@ class _ScheduleAppointmentPageState extends State<ScheduleAppointmentPage> {
               ),
             ),
             SizedBox(
-              height: 5.0,
+              height: 10.0,
             ),
             Expanded(
               child: CupertinoDatePicker(
@@ -131,10 +131,21 @@ class _ScheduleAppointmentPageState extends State<ScheduleAppointmentPage> {
             ElevatedButton(
               onPressed: () {},
               style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.all<Color>(kPrimaryColor),
+                fixedSize: MaterialStateProperty.all(Size(262, 61)),
+                elevation: MaterialStateProperty.all(0.0),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50.0),
+                    side: BorderSide(
+                      color: Color.fromRGBO(106, 99, 242, 1),
+                    ),
+                  ),
+                ),
               ),
-              child: Text("Agendar"),
+              child: Text(
+                "Agendar",
+                style: TextStyle(fontSize: 16),
+              ),
             )
           ],
         ),
