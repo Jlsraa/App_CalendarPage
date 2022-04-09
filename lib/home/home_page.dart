@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:proyecto_01/pages/calendar_page.dart';
+import 'package:proyecto_01/pages/patients_page.dart';
 import 'package:proyecto_01/pages/schedule_appointment_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -21,9 +22,7 @@ class _HomePageState extends State<HomePage> {
   final _pagesList = [
     CalendarPage(),
     ScheduleAppointmentPage(),
-    Center(
-      child: Text("Patients"),
-    ),
+    PatientsPage(),
   ];
 
   @override
