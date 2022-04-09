@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:proyecto_01/content/appointments/appointment_page.dart';
 import '../content/Day_Calendar/calendar_page.dart';
 import '../content/Schedule/schedule_appointment_page.dart';
 import '../content/patients/patient_info.dart';
@@ -19,9 +20,7 @@ class _HomePageState extends State<HomePage> {
   final _pagesList = [
     CalendarPage(),
     ScheduleAppointmentPage(),
-    Center(
-      child: Text("Appointmets"),
-    ),
+    AppointmentPage(),
     PatientsPage(),
   ];
 
