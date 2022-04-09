@@ -1,7 +1,5 @@
-import 'dart:ffi';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:proyecto_01/content/profile/edit_profile_page.dart';
 
 class Profile extends StatefulWidget {
   Profile({Key? key}) : super(key: key);
@@ -151,9 +149,20 @@ class _ProfileState extends State<Profile> {
                     ),
                   ),
                 ),
-                child: Text(
-                  "Editar Perfil",
-                  style: TextStyle(fontSize: 16),
+                child: TextButton(
+                  child: Text(
+                    "Editar Perfil",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.white,
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => EditProfile()),
+                    );
+                  },
                 ),
               )
             ],

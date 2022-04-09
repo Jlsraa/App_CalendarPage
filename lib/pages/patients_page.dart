@@ -16,7 +16,7 @@ class _PatientsPageState extends State<PatientsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar,
+      appBar: getCustomAppBar(context),
       body: Padding(
         padding: const EdgeInsets.all(32.0),
         child: ListView.builder(

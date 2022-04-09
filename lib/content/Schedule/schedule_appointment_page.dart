@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:proyecto_01/utilities/constants.dart';
 
 import '../../utilities/components/custom_appbar.dart';
 
@@ -16,7 +15,7 @@ class _ScheduleAppointmentPageState extends State<ScheduleAppointmentPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar,
+      appBar: getCustomAppBar(context),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(40, 0, 40, 40),
         child: Column(
