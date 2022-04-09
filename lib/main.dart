@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:proyecto_01/content/profile/profile.dart';
 import 'package:proyecto_01/home/home_page.dart';
+<<<<<<< HEAD
+=======
+// import 'package:proyecto_01/pages/calendar_page.dart';
+// import 'package:proyecto_01/pages/patient_info.dart';
+>>>>>>> b2ca5e543eb655937d74021cc0542b2f9b98303a
 
 void main() => runApp(MyApp());
 

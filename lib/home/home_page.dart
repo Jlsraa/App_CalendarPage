@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import '../content/Day_Calendar/calendar_page.dart';
 import '../content/Schedule/schedule_appointment_page.dart';
+=======
+import 'package:proyecto_01/pages/calendar_page.dart';
+import 'package:proyecto_01/pages/patients_page.dart';
+import 'package:proyecto_01/pages/schedule_appointment_page.dart';
+>>>>>>> b2ca5e543eb655937d74021cc0542b2f9b98303a
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -17,12 +23,16 @@ class _HomePageState extends State<HomePage> {
   final _pagesList = [
     CalendarPage(),
     ScheduleAppointmentPage(),
+<<<<<<< HEAD
     Center(
       child: Text("Appointmets"),
     ),
     Center(
       child: Text("Patients"),
     ),
+=======
+    PatientsPage(),
+>>>>>>> b2ca5e543eb655937d74021cc0542b2f9b98303a
   ];
 
   @override
