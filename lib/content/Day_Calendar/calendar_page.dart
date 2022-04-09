@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD:lib/content/Day_Calendar/calendar_page.dart
-=======
-// import 'package:proyecto_01/pages/schedule_appointment_page.dart';
->>>>>>> b2ca5e543eb655937d74021cc0542b2f9b98303a:lib/pages/calendar_page.dart
 import 'package:proyecto_01/utilities/components/custom_appbar.dart';
 import 'package:proyecto_01/utilities/meeting.dart';
 import 'package:proyecto_01/utilities/meeting_data_source.dart';
