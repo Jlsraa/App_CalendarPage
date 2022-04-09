@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:proyecto_01/content/profile/profile.dart';
 import 'package:proyecto_01/home/home_page.dart';
 
 void main() => runApp(MyApp());
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       title: 'Material App',
-      home: HomePage(),
+      home: Profile(),
     );
   }
 }
