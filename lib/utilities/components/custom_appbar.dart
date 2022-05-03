@@ -32,9 +32,9 @@ dynamic getCustomAppBar(BuildContext context) {
               'John Doe',
               textAlign: TextAlign.end,
               style: TextStyle(
-                color: Colors.grey[900],
-                fontWeight: FontWeight.w300,
-              ),
+                  color: Colors.grey[900],
+                  fontWeight: FontWeight.w300,
+                  fontSize: 20),
             ),
           ),
         ),

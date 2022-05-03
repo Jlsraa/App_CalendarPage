@@ -14,24 +14,27 @@ class _AppointmentPageState extends State<AppointmentPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: getCustomAppBar(context),
-      body: SfCalendar(
-        firstDayOfWeek: 1,
-        view: CalendarView.month,
-        showDatePickerButton: true,
-        showNavigationArrow: true,
-        selectionDecoration: BoxDecoration(
-          color: Colors.transparent,
-          border: Border.all(
-            color: Color.fromRGBO(106, 99, 242, 1),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 40.0),
+        child: SfCalendar(
+          firstDayOfWeek: 1,
+          view: CalendarView.month,
+          showDatePickerButton: true,
+          showNavigationArrow: true,
+          selectionDecoration: BoxDecoration(
+            color: Colors.transparent,
+            border: Border.all(
+              color: Color.fromRGBO(106, 99, 242, 1),
+            ),
+            borderRadius: BorderRadius.all(Radius.circular(4)),
+            shape: BoxShape.rectangle,
           ),
-          borderRadius: BorderRadius.all(Radius.circular(4)),
-          shape: BoxShape.rectangle,
-        ),
-        monthViewSettings: MonthViewSettings(
-          showAgenda: true,
-          appointmentDisplayMode: MonthAppointmentDisplayMode.appointment,
-          agendaStyle: AgendaStyle(backgroundColor: Colors.grey[200]),
-          dayFormat: 'EEE',
+          monthViewSettings: MonthViewSettings(
+            showAgenda: true,
+            appointmentDisplayMode: MonthAppointmentDisplayMode.appointment,
+            agendaStyle: AgendaStyle(backgroundColor: Colors.grey[200]),
+            dayFormat: 'EEE',
+          ),
         ),
       ),
     );

@@ -39,14 +39,14 @@ class _CalendarPageState extends State<CalendarPage> {
     return Scaffold(
       appBar: getCustomAppBar(context),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(40, 0, 40, 40),
+        padding: const EdgeInsets.fromLTRB(40, 0, 40, 0),
         child: Column(
           // Bienvenida al usuario con su nombre
           children: [
             Row(
               children: [
                 Text(
-                  "Bienvenido, John",
+                  "Welcome, John",
                   textAlign: TextAlign.start,
                   style: TextStyle(
                       fontSize: 24,
@@ -60,7 +60,7 @@ class _CalendarPageState extends State<CalendarPage> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 10, 10, 30),
                   child: Text(
-                    "Estas son sus consultas del día de hoy",
+                    "These are today's appointments",
                     textAlign: TextAlign.start,
                     style: TextStyle(fontSize: 16, color: Colors.black54),
                   ),

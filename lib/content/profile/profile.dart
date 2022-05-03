@@ -87,7 +87,7 @@ class _ProfileState extends State<Profile> {
                         ),
                         Text(
                           "john.doe@dr.com",
-                          style: TextStyle(fontSize: 14),
+                          style: TextStyle(fontSize: 16),
                         ),
                       ],
                     ),
@@ -106,7 +106,7 @@ class _ProfileState extends State<Profile> {
                         ),
                         Text(
                           "33 34 43 34 43",
-                          style: TextStyle(fontSize: 14),
+                          style: TextStyle(fontSize: 16),
                         ),
                       ],
                     ),
@@ -125,7 +125,7 @@ class _ProfileState extends State<Profile> {
                         ),
                         Text(
                           "Calle 111, Guadalajara, México",
-                          style: TextStyle(fontSize: 14),
+                          style: TextStyle(fontSize: 16),
                         ),
                       ],
                     ),
@@ -151,9 +151,9 @@ class _ProfileState extends State<Profile> {
                 ),
                 child: TextButton(
                   child: Text(
-                    "Editar Perfil",
+                    "Edit profile",
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 20,
                       color: Colors.white,
                     ),
                   ),
