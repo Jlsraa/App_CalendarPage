@@ -128,6 +128,9 @@ class _ScheduleAppointmentPageState extends State<ScheduleAppointmentPage> {
               maxLines: 30,
               minLines: 5,
             ),
+            SizedBox(
+              height: 20,
+            ),
             ElevatedButton(
               onPressed: () {},
               style: ButtonStyle(
