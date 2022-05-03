@@ -13,7 +13,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar,
+      appBar: getCustomAppBar(context),
       body: SfCalendar(
         firstDayOfWeek: 1,
         view: CalendarView.month,

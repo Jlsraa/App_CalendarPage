@@ -13,7 +13,7 @@ class _PatientDetailState extends State<PatientDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar,
+      appBar: getCustomAppBar(context),
       body: Center(
         child: Container(
           width: 300,
