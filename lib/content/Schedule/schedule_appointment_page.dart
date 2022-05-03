@@ -1,8 +1,5 @@
 import 'package:date_time_picker/date_time_picker.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:proyecto_01/utilities/constants.dart';
 
 import '../../utilities/components/custom_appbar.dart';
 
@@ -15,6 +12,7 @@ class ScheduleAppointmentPage extends StatefulWidget {
 }
 
 class _ScheduleAppointmentPageState extends State<ScheduleAppointmentPage> {
+  var datetime;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -138,18 +136,23 @@ class _ScheduleAppointmentPageState extends State<ScheduleAppointmentPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: DateTimePicker(
-                  showCursor: false,
-                  type: DateTimePickerType.dateTimeSeparate,
-                  dateMask: 'd MMM, yyyy',
-                  initialValue: DateTime.now().toString(),
-                  firstDate: DateTime(2010),
-                  lastDate: DateTime(2050),
-                  icon: const Icon(Icons.event),
-                  dateLabelText: 'Date',
-                  timeLabelText: "Hour",
-                  onChanged: (value) => print(value),
-                  onSaved: (value) => print(value),
-                ),
+                    showCursor: false,
+                    type: DateTimePickerType.dateTimeSeparate,
+                    dateMask: 'd MMM, yyyy',
+                    initialValue: DateTime.now().toString(),
+                    firstDate: DateTime(2010),
+                    lastDate: DateTime(2050),
+                    icon: const Icon(Icons.event),
+                    dateLabelText: 'Date',
+                    timeLabelText: "Hour",
+                    onChanged: (value) {
+                      print(value);
+                      datetime = value;
+                    },
+                    onSaved: (value) {
+                      print(value);
+                      datetime = value;
+                    }),
               ),
               Row(
                 children: [
@@ -186,7 +189,48 @@ class _ScheduleAppointmentPageState extends State<ScheduleAppointmentPage> {
               ),
               SizedBox(height: 25),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (ctx) => AlertDialog(
+                      title: Text(
+                        'Appointment',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Color.fromRGBO(106, 99, 242, 1),
+                        ),
+                      ),
+                      content: Text(
+                          "Schedule appoinment for PATIENT at ${datetime}?"),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () => Navigator.pop(context, 'CANCEL'),
+                          child: Text(
+                            'CANCEL',
+                            style: TextStyle(
+                                fontSize: 16, color: Colors.grey[700]),
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            print("Appointmet saved...");
+                            // BlocProvider.of<AuthBloc>(context).add(
+                            //   SignOutEvent(),
+                            // );
+                            Navigator.pop(context, 'OK');
+                          },
+                          child: Text(
+                            'OK',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Color.fromRGBO(106, 99, 242, 1),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
                 style: ButtonStyle(
                   fixedSize: MaterialStateProperty.all(Size(330, 61)),
                   elevation: MaterialStateProperty.all(0.0),
