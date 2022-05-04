@@ -1,0 +1,22 @@
+# This is a generated file; do not edit or check into version control.
+cloud_firestore=/Users/alberto/My_Docs/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore-3.1.14/
+cloud_firestore_web=/Users/alberto/My_Docs/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore_web-2.6.14/
+desktop_webview_auth=/Users/alberto/My_Docs/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/desktop_webview_auth-0.0.7/
+firebase_auth=/Users/alberto/My_Docs/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth-3.3.17/
+firebase_auth_web=/Users/alberto/My_Docs/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth_web-3.3.14/
+firebase_core=/Users/alberto/My_Docs/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core-1.16.0/
+firebase_core_web=/Users/alberto/My_Docs/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_web-1.6.3/
+firebase_database=/Users/alberto/My_Docs/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_database-9.0.13/
+firebase_database_web=/Users/alberto/My_Docs/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_database_web-0.2.0+12/
+firebase_dynamic_links=/Users/alberto/My_Docs/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_dynamic_links-4.2.2/
+firebase_storage=/Users/alberto/My_Docs/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_storage-10.2.15/
+firebase_storage_web=/Users/alberto/My_Docs/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_storage_web-3.2.14/
+flutter_facebook_auth=/Users/alberto/My_Docs/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_facebook_auth-4.3.0/
+flutter_facebook_auth_web=/Users/alberto/My_Docs/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_facebook_auth_web-3.1.0/
+google_sign_in=/Users/alberto/My_Docs/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/google_sign_in-5.3.0/
+google_sign_in_android=/Users/alberto/My_Docs/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/google_sign_in_android-5.2.6/
+google_sign_in_ios=/Users/alberto/My_Docs/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/google_sign_in_ios-5.2.6/
+google_sign_in_web=/Users/alberto/My_Docs/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/google_sign_in_web-0.10.1/
+sign_in_with_apple=/Users/alberto/My_Docs/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/sign_in_with_apple-3.3.0/
+sign_in_with_apple_web=/Users/alberto/My_Docs/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/sign_in_with_apple_web-1.0.1/
+twitter_login=/Users/alberto/My_Docs/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/twitter_login-4.2.3/
