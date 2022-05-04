@@ -112,4 +112,18 @@ class _CalendarPageState extends State<CalendarPage> {
       ),
     );
   }
+
+  _fetch() async {
+    final firebaseUser = await FirebaseAuth.instance.currentUser;
+    if (firebaseUser != null)
+      await FirebaseFirestore.instance
+          .collection('userDoctor')
+          .doc(firebaseUser.uid)
+          .get()
+          .then((ds) {
+        userName = ds.data()!['name'];
+      }).catchError((e) {
+        print(e);
+      });
+  }
 }

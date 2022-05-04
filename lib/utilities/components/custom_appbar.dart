@@ -1,9 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../auth/bloc/auth_bloc.dart';
 import '../../content/profile/profile.dart';
+
+late String userPhoto;
+late String userName;
 
 dynamic getCustomAppBar(BuildContext context) {
   User? user = FirebaseAuth.instance.currentUser;
@@ -59,7 +63,7 @@ dynamic getCustomAppBar(BuildContext context) {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Padding(
-          padding: const EdgeInsets.only(right: 16.0),
+          padding: const EdgeInsets.only(right: 5.0),
           child: TextButton(
             onPressed: () {
               Navigator.push(
