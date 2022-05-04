@@ -182,7 +182,7 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
                 SizedBox(
-                  height: 120,
+                  height: 30,
                 ),
                 ElevatedButton(
                   onPressed: () {},
