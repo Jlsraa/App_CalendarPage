@@ -1,8 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../auth/bloc/auth_bloc.dart';
 import '../../content/profile/profile.dart';
+
+late String userPhoto;
+late String userName;
 
 dynamic getCustomAppBar(BuildContext context) {
   return AppBar(
@@ -56,7 +61,7 @@ dynamic getCustomAppBar(BuildContext context) {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Padding(
-          padding: const EdgeInsets.only(right: 16.0),
+          padding: const EdgeInsets.only(right: 5.0),
           child: TextButton(
             onPressed: () {
               Navigator.push(
@@ -64,13 +69,17 @@ dynamic getCustomAppBar(BuildContext context) {
                 MaterialPageRoute(builder: (context) => Profile()),
               );
             },
-            child: Text(
-              'John Doe',
-              textAlign: TextAlign.end,
-              style: TextStyle(
-                  color: Colors.grey[900],
-                  fontWeight: FontWeight.w300,
-                  fontSize: 20),
+            child: FutureBuilder(
+              future: _fetch(),
+              builder: (context, snapshot) {
+                return Text(
+                  "$userName",
+                  style: TextStyle(
+                      color: Colors.grey[900],
+                      fontWeight: FontWeight.w300,
+                      fontSize: 20),
+                );
+              },
             ),
           ),
         ),
@@ -90,6 +99,20 @@ dynamic getCustomAppBar(BuildContext context) {
   );
 }
 
+_fetch() async {
+  final firebaseUser = await FirebaseAuth.instance.currentUser;
+  if (firebaseUser != null)
+    await FirebaseFirestore.instance
+        .collection('userDoctor')
+        .doc(firebaseUser.uid)
+        .get()
+        .then((ds) {
+      userPhoto = ds.data()!['profilePicture'];
+      userName = ds.data()!['name'];
+    }).catchError((e) {
+      print(e);
+    });
+}
 // AppBar customAppBar = AppBar(
 //   // centerTitle: false,
 //   leading: Padding(

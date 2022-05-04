@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:proyecto_01/utilities/components/custom_appbar.dart';
 import 'package:proyecto_01/utilities/meeting.dart';
@@ -34,6 +36,8 @@ List<Meeting> _getDataSource() {
 }
 
 class _CalendarPageState extends State<CalendarPage> {
+  late String userName = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,13 +49,19 @@ class _CalendarPageState extends State<CalendarPage> {
           children: [
             Row(
               children: [
-                Text(
-                  "Welcome, John",
-                  textAlign: TextAlign.start,
-                  style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87),
+                FutureBuilder(
+                  future: _fetch(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState != ConnectionState.done)
+                      return CircularProgressIndicator();
+                    return Text(
+                      "Welcome, ${userName.split(" ")[0]}",
+                      style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black87),
+                    );
+                  },
                 ),
               ],
             ),
@@ -108,5 +118,19 @@ class _CalendarPageState extends State<CalendarPage> {
         ),
       ),
     );
+  }
+
+  _fetch() async {
+    final firebaseUser = await FirebaseAuth.instance.currentUser;
+    if (firebaseUser != null)
+      await FirebaseFirestore.instance
+          .collection('userDoctor')
+          .doc(firebaseUser.uid)
+          .get()
+          .then((ds) {
+        userName = ds.data()!['name'];
+      }).catchError((e) {
+        print(e);
+      });
   }
 }

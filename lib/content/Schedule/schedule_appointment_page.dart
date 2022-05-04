@@ -23,7 +23,7 @@ class _ScheduleAppointmentPageState extends State<ScheduleAppointmentPage> {
   int selectedIndex = 0;
 
   Color selectedColor = Color.fromARGB(255, 106, 99, 242);
-  Color notSelectedColor = Color.fromARGB(255, 125, 122, 189);
+  Color notSelectedColor = Color.fromARGB(200, 169, 165, 255);
 
   @override
   Widget build(BuildContext context) {
