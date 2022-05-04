@@ -17,7 +17,7 @@ class _ProfileState extends State<Profile> {
   late String userName;
   late String userSpecialty;
   late String userEmail;
-  late int userPhoneNumber;
+  late String userPhoneNumber;
   late String userAddress;
   User? user = FirebaseAuth.instance.currentUser;
 
@@ -182,7 +182,7 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
                 SizedBox(
-                  height: 30,
+                  height: 30.0,
                 ),
                 ElevatedButton(
                   onPressed: () {},

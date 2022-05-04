@@ -25,7 +25,8 @@ class _EditProfileState extends State<EditProfile> {
               CircleAvatar(
                 minRadius: 48.0,
                 maxRadius: 72.0,
-                backgroundImage: NetworkImage('${user!.photoURL}'),
+                backgroundImage: NetworkImage(
+                    "${FirebaseAuth.instance.currentUser!.photoURL}"),
               ),
               SizedBox(
                 height: 16.0,
