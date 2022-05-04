@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -5,6 +6,8 @@ import '../../auth/bloc/auth_bloc.dart';
 import '../../content/profile/profile.dart';
 
 dynamic getCustomAppBar(BuildContext context) {
+  User? user = FirebaseAuth.instance.currentUser;
+
   return AppBar(
     // centerTitle: false,
     leading: IconButton(
@@ -65,7 +68,7 @@ dynamic getCustomAppBar(BuildContext context) {
               );
             },
             child: Text(
-              'John Doe',
+              "${user!.displayName}",
               textAlign: TextAlign.end,
               style: TextStyle(
                   color: Colors.grey[900],
@@ -82,7 +85,7 @@ dynamic getCustomAppBar(BuildContext context) {
             );
           },
           child: CircleAvatar(
-            backgroundImage: NetworkImage('https://source.unsplash.com/random'),
+            backgroundImage: NetworkImage("${user.photoURL}"),
           ),
         ),
       ],

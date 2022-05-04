@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:proyecto_01/utilities/components/custom_appbar.dart';
 import 'package:proyecto_01/utilities/meeting.dart';
@@ -34,6 +36,7 @@ List<Meeting> _getDataSource() {
 }
 
 class _CalendarPageState extends State<CalendarPage> {
+  User? user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +49,7 @@ class _CalendarPageState extends State<CalendarPage> {
             Row(
               children: [
                 Text(
-                  "Welcome, John",
+                  "Welcome, ${user!.displayName}",
                   textAlign: TextAlign.start,
                   style: TextStyle(
                       fontSize: 24,
