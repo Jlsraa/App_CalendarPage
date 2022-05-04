@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/firestore.dart';
 import 'package:proyecto_01/content/profile/edit_profile_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:proyecto_01/utilities/data/users.dart';
 
 class Profile extends StatefulWidget {
   Profile({Key? key}) : super(key: key);
@@ -13,12 +14,14 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   final firebaseInstance = FirebaseFirestore.instance;
-  late String userPhoto;
-  late String userName;
-  late String userSpecialty;
-  late String userEmail;
-  late int userPhoneNumber;
-  late String userAddress;
+  // late String userPhoto;
+  // late String userName;
+  // late String userSpecialty;
+  // late String userEmail;
+  // late int userPhoneNumber;
+  // late String userAddress;
+
+  Users _userData = Users();
 
   @override
   Widget build(BuildContext context) {
@@ -64,12 +67,12 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
                 FutureBuilder(
-                  future: _fetch(),
+                  future: _userData.fetch(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState != ConnectionState.done)
                       return CircularProgressIndicator();
                     return Text(
-                      "$userName",
+                      "$_userData.userName",
                       style:
                           TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     );
@@ -79,12 +82,12 @@ class _ProfileState extends State<Profile> {
                   height: 10,
                 ),
                 FutureBuilder(
-                  future: _fetch(),
+                  future: _userData.fetch(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState != ConnectionState.done)
                       return CircularProgressIndicator();
                     return Text(
-                      "$userSpecialty",
+                      "$_userData.userSpecialty",
                       style: TextStyle(fontSize: 13, color: Colors.grey),
                     );
                   },
@@ -109,13 +112,13 @@ class _ProfileState extends State<Profile> {
                           Row(
                             children: [
                               FutureBuilder(
-                                future: _fetch(),
+                                future: _userData.fetch(),
                                 builder: (context, snapshot) {
                                   if (snapshot.connectionState !=
                                       ConnectionState.done)
                                     return CircularProgressIndicator();
                                   return Text(
-                                    "$userEmail",
+                                    "$_userData.userEmail",
                                     style: TextStyle(fontSize: 16),
                                   );
                                 },
@@ -138,13 +141,13 @@ class _ProfileState extends State<Profile> {
                             width: 20,
                           ),
                           FutureBuilder(
-                            future: _fetch(),
+                            future: _userData.fetch(),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState !=
                                   ConnectionState.done)
                                 return CircularProgressIndicator();
                               return Text(
-                                "$userPhoneNumber",
+                                "$_userData.userPhoneNumber",
                                 style: TextStyle(fontSize: 16),
                               );
                             },
@@ -165,13 +168,13 @@ class _ProfileState extends State<Profile> {
                             width: 20,
                           ),
                           FutureBuilder(
-                            future: _fetch(),
+                            future: _userData.fetch(),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState !=
                                   ConnectionState.done)
                                 return CircularProgressIndicator();
                               return Text(
-                                "$userAddress",
+                                "$_userData.userAddress",
                                 style: TextStyle(fontSize: 16),
                               );
                             },
@@ -222,22 +225,22 @@ class _ProfileState extends State<Profile> {
     );
   }
 
-  _fetch() async {
-    final firebaseUser = await FirebaseAuth.instance.currentUser;
-    if (firebaseUser != null)
-      await FirebaseFirestore.instance
-          .collection('userDoctor')
-          .doc(firebaseUser.uid)
-          .get()
-          .then((ds) {
-        userPhoto = ds.data()!['profilePicture'];
-        userName = ds.data()!['name'];
-        userSpecialty = ds.data()!['specialty'];
-        userEmail = ds.data()!['email'];
-        userPhoneNumber = ds.data()!['phoneNumber'];
-        userAddress = ds.data()!['address'];
-      }).catchError((e) {
-        print(e);
-      });
-  }
+  // _fetch() async {
+  //   final firebaseUser = await FirebaseAuth.instance.currentUser;
+  //   if (firebaseUser != null)
+  //     await FirebaseFirestore.instance
+  //         .collection('userDoctor')
+  //         .doc(firebaseUser.uid)
+  //         .get()
+  //         .then((ds) {
+  //       userPhoto = ds.data()!['profilePicture'];
+  //       userName = ds.data()!['name'];
+  //       userSpecialty = ds.data()!['specialty'];
+  //       userEmail = ds.data()!['email'];
+  //       userPhoneNumber = ds.data()!['phoneNumber'];
+  //       userAddress = ds.data()!['address'];
+  //     }).catchError((e) {
+  //       print(e);
+  //     });
+  // }
 }
