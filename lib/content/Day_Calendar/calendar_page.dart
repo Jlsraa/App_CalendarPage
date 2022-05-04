@@ -49,7 +49,7 @@ class _CalendarPageState extends State<CalendarPage> {
             Row(
               children: [
                 Text(
-                  "Welcome, ${user!.displayName}",
+                  "Welcome, ${user!.displayName!.split(" ")[0]}",
                   textAlign: TextAlign.start,
                   style: TextStyle(
                       fontSize: 24,

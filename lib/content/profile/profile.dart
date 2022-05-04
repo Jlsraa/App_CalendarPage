@@ -19,6 +19,7 @@ class _ProfileState extends State<Profile> {
   late String userEmail;
   late int userPhoneNumber;
   late String userAddress;
+  User? user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -54,8 +55,7 @@ class _ProfileState extends State<Profile> {
                   padding: const EdgeInsets.fromLTRB(0, 200, 0, 5),
                   child: CircleAvatar(
                     child: CircleAvatar(
-                      backgroundImage:
-                          NetworkImage('https://source.unsplash.com/random'),
+                      backgroundImage: NetworkImage('${user!.photoURL}'),
                       backgroundColor: Colors.white,
                       radius: 67,
                     ),
@@ -115,7 +115,7 @@ class _ProfileState extends State<Profile> {
                                       ConnectionState.done)
                                     return CircularProgressIndicator();
                                   return Text(
-                                    "$userEmail",
+                                    "${user!.email}",
                                     style: TextStyle(fontSize: 16),
                                   );
                                 },
@@ -222,7 +222,7 @@ class _ProfileState extends State<Profile> {
     );
   }
 
-  _fetch() async {
+  Future _fetch() async {
     final firebaseUser = await FirebaseAuth.instance.currentUser;
     if (firebaseUser != null)
       await FirebaseFirestore.instance
