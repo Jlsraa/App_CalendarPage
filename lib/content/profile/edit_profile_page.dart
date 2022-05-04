@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:proyecto_01/utilities/components/simple_appbar.dart';
 
@@ -22,8 +23,8 @@ class _EditProfileState extends State<EditProfile> {
               CircleAvatar(
                 minRadius: 48.0,
                 maxRadius: 72.0,
-                backgroundImage:
-                    NetworkImage('https://source.unsplash.com/random'),
+                backgroundImage: NetworkImage(
+                    "${FirebaseAuth.instance.currentUser!.photoURL}"),
               ),
               SizedBox(
                 height: 16.0,
