@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterfire_ui/firestore.dart';
 import 'package:proyecto_01/content/profile/edit_profile_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Profile extends StatefulWidget {
   Profile({Key? key}) : super(key: key);
@@ -9,6 +12,14 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  final firebaseInstance = FirebaseFirestore.instance;
+  late String userPhoto;
+  late String userName;
+  late String userSpecialty;
+  late String userEmail;
+  late int userPhoneNumber;
+  late String userAddress;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,139 +47,197 @@ class _ProfileState extends State<Profile> {
               ),
             ),
           ),
-          Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 200, 0, 5),
-                child: CircleAvatar(
+          Container(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 200, 0, 5),
                   child: CircleAvatar(
-                    backgroundImage:
-                        NetworkImage('https://source.unsplash.com/random'),
+                    child: CircleAvatar(
+                      backgroundImage:
+                          NetworkImage('https://source.unsplash.com/random'),
+                      backgroundColor: Colors.white,
+                      radius: 67,
+                    ),
                     backgroundColor: Colors.white,
-                    radius: 67,
-                  ),
-                  backgroundColor: Colors.white,
-                  radius: 75,
-                ),
-              ),
-              Text(
-                "John Doe",
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                "Quiropráctico",
-                style: TextStyle(
-                  fontSize: 13,
-                  color: Colors.grey,
-                ),
-              ),
-              SizedBox(
-                height: 40,
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(70, 0, 0, 0),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.phone,
-                          size: 30,
-                          color: Color.fromRGBO(106, 99, 242, 1),
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Text(
-                          "john.doe@dr.com",
-                          style: TextStyle(fontSize: 16),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.email,
-                          size: 30,
-                          color: Color.fromRGBO(106, 99, 242, 1),
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Text(
-                          "33 34 43 34 43",
-                          style: TextStyle(fontSize: 16),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.location_pin,
-                          size: 30,
-                          color: Color.fromRGBO(106, 99, 242, 1),
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Text(
-                          "Calle 111, Guadalajara, México",
-                          style: TextStyle(fontSize: 16),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 120,
-              ),
-              ElevatedButton(
-                onPressed: () {},
-                style: ButtonStyle(
-                  fixedSize: MaterialStateProperty.all(Size(262, 61)),
-                  elevation: MaterialStateProperty.all(0.0),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50.0),
-                      side: BorderSide(
-                        color: Color.fromRGBO(106, 99, 242, 1),
-                      ),
-                    ),
+                    radius: 75,
                   ),
                 ),
-                child: TextButton(
-                  child: Text(
-                    "Edit profile",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.white,
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => EditProfile()),
+                FutureBuilder(
+                  future: _fetch(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState != ConnectionState.done)
+                      return CircularProgressIndicator();
+                    return Text(
+                      "$userName",
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     );
                   },
                 ),
-              )
-            ],
+                SizedBox(
+                  height: 10,
+                ),
+                FutureBuilder(
+                  future: _fetch(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState != ConnectionState.done)
+                      return CircularProgressIndicator();
+                    return Text(
+                      "$userSpecialty",
+                      style: TextStyle(fontSize: 13, color: Colors.grey),
+                    );
+                  },
+                ),
+                SizedBox(
+                  height: 40,
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(70, 0, 0, 0),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.phone,
+                            size: 30,
+                            color: Color.fromRGBO(106, 99, 242, 1),
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Row(
+                            children: [
+                              FutureBuilder(
+                                future: _fetch(),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState !=
+                                      ConnectionState.done)
+                                    return CircularProgressIndicator();
+                                  return Text(
+                                    "$userEmail",
+                                    style: TextStyle(fontSize: 16),
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.email,
+                            size: 30,
+                            color: Color.fromRGBO(106, 99, 242, 1),
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          FutureBuilder(
+                            future: _fetch(),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState !=
+                                  ConnectionState.done)
+                                return CircularProgressIndicator();
+                              return Text(
+                                "$userPhoneNumber",
+                                style: TextStyle(fontSize: 16),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.location_pin,
+                            size: 30,
+                            color: Color.fromRGBO(106, 99, 242, 1),
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          FutureBuilder(
+                            future: _fetch(),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState !=
+                                  ConnectionState.done)
+                                return CircularProgressIndicator();
+                              return Text(
+                                "$userAddress",
+                                style: TextStyle(fontSize: 16),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 120,
+                ),
+                ElevatedButton(
+                  onPressed: () {},
+                  style: ButtonStyle(
+                    fixedSize: MaterialStateProperty.all(Size(262, 61)),
+                    elevation: MaterialStateProperty.all(0.0),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50.0),
+                        side: BorderSide(
+                          color: Color.fromRGBO(106, 99, 242, 1),
+                        ),
+                      ),
+                    ),
+                  ),
+                  child: TextButton(
+                    child: Text(
+                      "Edit profile",
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => EditProfile()),
+                      );
+                    },
+                  ),
+                )
+              ],
+            ),
           ),
         ],
       ),
     );
+  }
+
+  _fetch() async {
+    final firebaseUser = await FirebaseAuth.instance.currentUser;
+    if (firebaseUser != null)
+      await FirebaseFirestore.instance
+          .collection('userDoctor')
+          .doc(firebaseUser.uid)
+          .get()
+          .then((ds) {
+        userPhoto = ds.data()!['profilePicture'];
+        userName = ds.data()!['name'];
+        userSpecialty = ds.data()!['specialty'];
+        userEmail = ds.data()!['email'];
+        userPhoneNumber = ds.data()!['phoneNumber'];
+        userAddress = ds.data()!['address'];
+      }).catchError((e) {
+        print(e);
+      });
   }
 }

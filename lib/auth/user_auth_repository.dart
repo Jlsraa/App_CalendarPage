@@ -49,14 +49,12 @@ class UserAuthRepository {
   // Metodo para guardar nuevo usuario en la colección "users"
   Future<void> _createUserCollectionFirebase(String uid) async {
     // Checar si ya existe un usuario con este uid
-    var userDoc = await FirebaseFirestore.instance
-        .collection("userDoctor")
-        .doc(uid)
-        .get();
+    var userDoc =
+        await FirebaseFirestore.instance.collection("users").doc(uid).get();
 
     // Si no existe doc(user), crearlo
     if (!userDoc.exists) {
-      await FirebaseFirestore.instance.collection("userDoctor").doc(uid).set(
+      await FirebaseFirestore.instance.collection("users").doc(uid).set(
         {
           "favourites": [], // Contenido a guardar
         },

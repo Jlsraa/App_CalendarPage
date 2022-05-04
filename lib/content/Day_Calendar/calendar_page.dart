@@ -60,7 +60,7 @@ class _CalendarPageState extends State<CalendarPage> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 10, 10, 30),
                   child: Text(
-                    "These are today's appointments",
+                    "Here are today's appointments",
                     textAlign: TextAlign.start,
                     style: TextStyle(fontSize: 16, color: Colors.black54),
                   ),
