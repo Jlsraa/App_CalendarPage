@@ -1,7 +1,10 @@
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:proyecto_01/content/Schedule/bloc/appointments_bloc.dart';
 
 import '../../utilities/components/custom_appbar.dart';
+import '../../utilities/data/patients_data.dart';
 
 class ScheduleAppointmentPage extends StatefulWidget {
   ScheduleAppointmentPage({Key? key}) : super(key: key);
@@ -13,6 +16,15 @@ class ScheduleAppointmentPage extends StatefulWidget {
 
 class _ScheduleAppointmentPageState extends State<ScheduleAppointmentPage> {
   var datetime;
+
+  TextEditingController dateController = TextEditingController();
+  TextEditingController notesController = TextEditingController();
+
+  int selectedIndex = 0;
+
+  Color selectedColor = Color.fromARGB(255, 106, 99, 242);
+  Color notSelectedColor = Color.fromARGB(255, 125, 122, 189);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,15 +72,21 @@ class _ScheduleAppointmentPageState extends State<ScheduleAppointmentPage> {
                 height: 130.0,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: 3,
+                  itemCount: patients.length,
                   itemBuilder: (BuildContext context, int index) {
                     return GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        setState(() {
+                          this.selectedIndex = index;
+                        });
+                      },
                       child: Card(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        color: Color.fromARGB(255, 106, 99, 242),
+                        color: index == selectedIndex
+                            ? selectedColor
+                            : notSelectedColor,
                         elevation: 3.0,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 32.0),
@@ -78,7 +96,7 @@ class _ScheduleAppointmentPageState extends State<ScheduleAppointmentPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Alberto Romano",
+                                patients[index].name,
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -95,7 +113,7 @@ class _ScheduleAppointmentPageState extends State<ScheduleAppointmentPage> {
                                 ),
                               ),
                               Text(
-                                "3 May, 2022",
+                                patients[index].getDateFormat(),
                                 textAlign: TextAlign.start,
                                 style: TextStyle(
                                   color: Colors.white,
@@ -136,21 +154,20 @@ class _ScheduleAppointmentPageState extends State<ScheduleAppointmentPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: DateTimePicker(
+                    controller: dateController,
                     showCursor: false,
                     type: DateTimePickerType.dateTimeSeparate,
                     dateMask: 'd MMM, yyyy',
-                    initialValue: DateTime.now().toString(),
-                    firstDate: DateTime(2010),
+                    // initialValue: DateTime.now().toString(),
+                    firstDate: DateTime.now(),
                     lastDate: DateTime(2050),
                     icon: const Icon(Icons.event),
                     dateLabelText: 'Date',
                     timeLabelText: "Hour",
                     onChanged: (value) {
-                      print(value);
                       datetime = value;
                     },
                     onSaved: (value) {
-                      print(value);
                       datetime = value;
                     }),
               ),
@@ -168,6 +185,7 @@ class _ScheduleAppointmentPageState extends State<ScheduleAppointmentPage> {
               ),
               SizedBox(height: 15),
               TextField(
+                controller: notesController,
                 decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.transparent),
@@ -201,10 +219,12 @@ class _ScheduleAppointmentPageState extends State<ScheduleAppointmentPage> {
                         ),
                       ),
                       content: Text(
-                          "Schedule appoinment for PATIENT at ${datetime}?"),
+                          "Schedule appoinment for ${patients[selectedIndex].name} at ${dateController.value.text}?"),
                       actions: <Widget>[
                         TextButton(
-                          onPressed: () => Navigator.pop(context, 'CANCEL'),
+                          onPressed: () {
+                            Navigator.pop(context, 'CANCEL');
+                          },
                           child: Text(
                             'CANCEL',
                             style: TextStyle(
@@ -213,11 +233,16 @@ class _ScheduleAppointmentPageState extends State<ScheduleAppointmentPage> {
                         ),
                         TextButton(
                           onPressed: () {
-                            print("Appointmet saved...");
-                            // BlocProvider.of<AuthBloc>(context).add(
-                            //   SignOutEvent(),
-                            // );
+                            BlocProvider.of<AppointmentsBloc>(context).add(
+                              NewAppointmentEvent(appointmentData: {
+                                "patient": "${patients[selectedIndex].id}",
+                                "notes": "${notesController.value.text}",
+                                "date": "${dateController.value.text}",
+                              }),
+                            );
                             Navigator.pop(context, 'OK');
+                            dateController.clear();
+                            notesController.clear();
                           },
                           child: Text(
                             'OK',

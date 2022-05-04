@@ -2,10 +2,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:proyecto_01/auth/bloc/auth_bloc.dart';
+import 'package:proyecto_01/content/Schedule/bloc/appointments_bloc.dart';
 import 'package:proyecto_01/home/home_page.dart';
 import 'package:proyecto_01/login/login.dart';
-
-import 'content/Day_Calendar/calendar_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,7 +13,10 @@ void main() async {
     MultiBlocProvider(providers: [
       BlocProvider(
         create: (context) => AuthBloc()..add(VerifyAuthEvent()),
-      )
+      ),
+      BlocProvider(
+        create: (context) => AppointmentsBloc(),
+      ),
     ], child: MyApp()),
   );
 }
