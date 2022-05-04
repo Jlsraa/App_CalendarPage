@@ -12,7 +12,7 @@ _AppointmentDataSource _getCalendarDataSource() {
   List<Appointment> appointments = <Appointment>[];
   appointments.add(Appointment(
     startTime: DateTime.now(),
-    endTime: DateTime.now().add(Duration(minutes: 10)),
+    endTime: DateTime.now().add(Duration(minutes: 60)),
     subject: 'Meeting',
     color: Colors.blue,
     startTimeZone: '',
