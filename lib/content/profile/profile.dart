@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterfire_ui/firestore.dart';
 import 'package:proyecto_01/content/profile/edit_profile_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
