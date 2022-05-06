@@ -15,22 +15,28 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       body: Stack(
         children: [
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.black45,
-            ),
+          Image.asset(
+            'assets/images/login.png',
+            fit: BoxFit.contain,
+            height: double.infinity,
+            width: double.infinity,
+            alignment: Alignment.bottomCenter,
+          ),
+          Image.asset(
+            'assets/images/illustration.png',
+            fit: BoxFit.scaleDown,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: ListView(
               children: [
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(24, 200, 24, 24),
+                  padding: const EdgeInsets.fromLTRB(24, 500, 24, 00),
                   child: Text(
-                    "Inicia sesión",
+                    "Doctor Calendar App",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 36,
+                      fontSize: 30,
                       fontWeight: FontWeight.bold,
                       color: Colors.grey[900],
                     ),
@@ -40,14 +46,27 @@ class _LoginPageState extends State<LoginPage> {
                 //   "assets/icons/app_icon.png",
                 //   height: 120,
                 // ),
-                SizedBox(height: 100),
+                SizedBox(height: 50),
                 MaterialButton(
-                  child: Text(
-                    "Iniciar sesión con Google",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.purple[300],
-                    ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 30,
+                        width: 30,
+                        child: Image.asset('assets/images/google.png'),
+                      ),
+                      SizedBox(
+                        width: 30,
+                      ),
+                      Text(
+                        "Signin with Google",
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.purple[300],
+                        ),
+                      ),
+                    ],
                   ),
                   color: Colors.white.withOpacity(0.90),
                   height: 50,

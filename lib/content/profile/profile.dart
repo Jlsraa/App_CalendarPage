@@ -12,12 +12,12 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   final firebaseInstance = FirebaseFirestore.instance;
-  late String userPhoto;
-  late String userName;
-  late String userSpecialty;
-  late String userEmail;
-  late String userPhoneNumber;
-  late String userAddress;
+  String? userPhoto;
+  String? userName;
+  String? userSpecialty;
+  String? userEmail;
+  String? userPhoneNumber;
+  String? userAddress;
   User? user = FirebaseAuth.instance.currentUser;
 
   @override
@@ -49,6 +49,7 @@ class _ProfileState extends State<Profile> {
           ),
           Container(
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 200, 0, 5),
@@ -153,29 +154,31 @@ class _ProfileState extends State<Profile> {
                       SizedBox(
                         height: 20,
                       ),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.location_pin,
-                            size: 30,
-                            color: Color.fromRGBO(106, 99, 242, 1),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          FutureBuilder(
-                            future: _fetch(),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState !=
-                                  ConnectionState.done)
-                                return CircularProgressIndicator();
-                              return Text(
-                                "$userAddress",
-                                style: TextStyle(fontSize: 16),
-                              );
-                            },
-                          ),
-                        ],
+                      Expanded(
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.location_pin,
+                              size: 30,
+                              color: Color.fromRGBO(106, 99, 242, 1),
+                            ),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            FutureBuilder<dynamic>(
+                              future: _fetch(),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState !=
+                                    ConnectionState.done)
+                                  return CircularProgressIndicator();
+                                return Text(
+                                  "$userAddress",
+                                  style: TextStyle(fontSize: 16),
+                                );
+                              },
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
