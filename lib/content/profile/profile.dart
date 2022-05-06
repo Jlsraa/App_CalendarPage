@@ -154,31 +154,33 @@ class _ProfileState extends State<Profile> {
                       SizedBox(
                         height: 20,
                       ),
-                      Expanded(
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.location_pin,
-                              size: 30,
-                              color: Color.fromRGBO(106, 99, 242, 1),
-                            ),
-                            SizedBox(
-                              width: 20,
-                            ),
-                            FutureBuilder<dynamic>(
-                              future: _fetch(),
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState !=
-                                    ConnectionState.done)
-                                  return CircularProgressIndicator();
-                                return Text(
-                                  "$userAddress",
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.location_pin,
+                            size: 30,
+                            color: Color.fromRGBO(106, 99, 242, 1),
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          FutureBuilder<dynamic>(
+                            future: _fetch(),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState !=
+                                  ConnectionState.done)
+                                return CircularProgressIndicator();
+                              return Flexible(
+                                child: Text(
+                                  // "$userAddress",
+                                  "hola esta es mi dirección super larga, que probablemente no quepa en el espacio asignado",
+                                  overflow: TextOverflow.ellipsis,
                                   style: TextStyle(fontSize: 16),
-                                );
-                              },
-                            ),
-                          ],
-                        ),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
                       ),
                     ],
                   ),
