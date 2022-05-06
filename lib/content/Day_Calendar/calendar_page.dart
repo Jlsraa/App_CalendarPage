@@ -1,10 +1,13 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:proyecto_01/utilities/components/custom_appbar.dart';
 import 'package:proyecto_01/utilities/meeting.dart';
 import 'package:proyecto_01/utilities/meeting_data_source.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
+
+import 'bloc/appointmentsfortoday_bloc.dart';
 
 class CalendarPage extends StatefulWidget {
   CalendarPage({Key? key}) : super(key: key);
@@ -13,8 +16,12 @@ class CalendarPage extends StatefulWidget {
   State<CalendarPage> createState() => _CalendarPageState();
 }
 
-List<Meeting> _getDataSource() {
-  final List<Meeting> meetings = <Meeting>[];
+List<Meeting> _getDataSource(BuildContext context) {
+  List<Meeting> meetings = [];
+
+  BlocProvider.of<AppointmentsfortodayBloc>(context)
+      .add(GetAppointmentsForTodayEvent());
+
   final DateTime today = DateTime.now();
   final DateTime startTime =
       DateTime(today.year, today.month, today.day, 15, 0, 0);
@@ -76,7 +83,7 @@ class _CalendarPageState extends State<CalendarPage> {
               child: SfCalendar(
                 view: CalendarView.day,
                 dataSource: MeetingDataSource(
-                  _getDataSource(),
+                  _getDataSource(context),
                 ),
                 timeSlotViewSettings: TimeSlotViewSettings(
                   timeFormat: 'h:mm a',
@@ -111,19 +118,5 @@ class _CalendarPageState extends State<CalendarPage> {
         ),
       ),
     );
-  }
-
-  _fetch() async {
-    final firebaseUser = await FirebaseAuth.instance.currentUser;
-    if (firebaseUser != null)
-      await FirebaseFirestore.instance
-          .collection('userDoctor')
-          .doc(firebaseUser.uid)
-          .get()
-          .then((ds) {
-        userName = ds.data()!['name'];
-      }).catchError((e) {
-        print(e);
-      });
   }
 }

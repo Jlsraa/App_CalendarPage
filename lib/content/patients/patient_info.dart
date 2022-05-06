@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../utilities/components/custom_appbar.dart';
+import '../../utilities/components/simple_appbar.dart';
 
 class PatientDetail extends StatefulWidget {
-  PatientDetail({Key? key}) : super(key: key);
-
   @override
   State<PatientDetail> createState() => _PatientDetailState();
 }
@@ -13,7 +11,7 @@ class _PatientDetailState extends State<PatientDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: getCustomAppBar(context),
+      appBar: getSimpleAppBar(context),
       body: Center(
         child: Container(
           width: 300,
