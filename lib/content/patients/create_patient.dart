@@ -1,18 +1,24 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:proyecto_01/utilities/components/simple_appbar.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:proyecto_01/content/patients/bloc/patients_bloc.dart';
 
 import '../../utilities/components/custom_input.dart';
+import '../../utilities/components/simple_appbar.dart';
 
-class EditProfile extends StatefulWidget {
-  const EditProfile({Key? key}) : super(key: key);
+class CreatePatient extends StatefulWidget {
+  CreatePatient({Key? key}) : super(key: key);
 
   @override
-  State<EditProfile> createState() => _EditProfileState();
+  State<CreatePatient> createState() => _CreatePatientState();
 }
 
-class _EditProfileState extends State<EditProfile> {
-  User? user = FirebaseAuth.instance.currentUser;
+class _CreatePatientState extends State<CreatePatient> {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController ageController = TextEditingController();
+  TextEditingController genderController = TextEditingController();
+  TextEditingController notesController = TextEditingController();
+  TextEditingController phoneNumberController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -22,25 +28,26 @@ class _EditProfileState extends State<EditProfile> {
         child: Center(
           child: Column(
             children: [
-              CircleAvatar(
-                minRadius: 48.0,
-                maxRadius: 72.0,
-                backgroundImage: NetworkImage(
-                    "${FirebaseAuth.instance.currentUser!.photoURL}"),
-              ),
-              SizedBox(
-                height: 16.0,
+              Text(
+                "Add Patient",
+                style: TextStyle(
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
               SizedBox(height: 16.0),
-              CustomInput(label: "Name", controller: null),
+              CustomInput(label: "Name", controller: nameController),
               SizedBox(height: 16.0),
-              CustomInput(label: "Specialty", controller: null),
+              CustomInput(label: "Age", controller: ageController),
               SizedBox(height: 16.0),
-              CustomInput(label: "Telephone Number", controller: null),
+              CustomInput(label: "Gender", controller: genderController),
               SizedBox(height: 16.0),
-              CustomInput(label: "E-mail", controller: null),
+              CustomInput(label: "Notes", controller: notesController),
               SizedBox(height: 16.0),
-              CustomInput(label: "Location", controller: null),
+              CustomInput(
+                  label: "Phone Number", controller: phoneNumberController),
+              SizedBox(height: 16.0),
+              CustomInput(label: "Email", controller: emailController),
               SizedBox(height: 30.0),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 40),
@@ -68,7 +75,28 @@ class _EditProfileState extends State<EditProfile> {
                           ),
                         ),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Map<String, dynamic> newPatient = {
+                              "name": nameController.text,
+                              "age": ageController.text,
+                              "gender": genderController.text,
+                              "notes": notesController.text,
+                              "phoneNumber": phoneNumberController.text,
+                              "email": emailController.text,
+                              "lastVisited": DateTime.now(),
+                            };
+                            print(newPatient);
+                            BlocProvider.of<PatientsBloc>(context).add(
+                              AddPatientEvent(newPatient: newPatient),
+                            );
+                            nameController.clear();
+                            ageController.clear();
+                            genderController.clear();
+                            notesController.clear();
+                            phoneNumberController.clear();
+                            emailController.clear();
+                            Navigator.pop(context);
+                          },
                           child: Text(
                             "Save Changes",
                             style: TextStyle(fontSize: 18),

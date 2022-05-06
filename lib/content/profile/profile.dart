@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:proyecto_01/content/profile/edit_profile_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:proyecto_01/utilities/components/simple_appbar.dart';
 
 class Profile extends StatefulWidget {
   Profile({Key? key}) : super(key: key);

@@ -8,3 +8,12 @@ abstract class PatientsEvent extends Equatable {
 }
 
 class GetAllPatientsEvent extends PatientsEvent {}
+
+class AddPatientEvent extends PatientsEvent {
+  final Map<String, dynamic> newPatient;
+
+  AddPatientEvent({required this.newPatient});
+
+  @override
+  List<Object> get props => [this.newPatient];
+}

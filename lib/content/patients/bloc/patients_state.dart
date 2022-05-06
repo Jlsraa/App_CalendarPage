@@ -20,3 +20,7 @@ class PatientsSuccessState extends PatientsState {
 }
 
 class PatientsErrorState extends PatientsState {}
+
+class AddedPatientState extends PatientsState {}
+
+class ErrorAddingPatientState extends PatientsState {}
