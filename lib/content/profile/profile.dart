@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:proyecto_01/content/profile/edit_profile_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:proyecto_01/utilities/components/simple_appbar.dart';
 
 class Profile extends StatefulWidget {
   Profile({Key? key}) : super(key: key);
@@ -31,10 +32,9 @@ class _ProfileState extends State<Profile> {
             image: AssetImage('assets/images/profile_bg.png'),
             fit: BoxFit.fill,
           ),
-          Container(
-            padding: EdgeInsets.fromLTRB(20, 50, 330, 700),
-            height: 100,
-            width: 50,
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(vertical: 32.0, horizontal: 16.0),
             child: IconButton(
               alignment: Alignment.topLeft,
               onPressed: () {
