@@ -85,7 +85,6 @@ class _CreatePatientState extends State<CreatePatient> {
                               "email": emailController.text,
                               "lastVisited": DateTime.now(),
                             };
-                            print(newPatient);
                             BlocProvider.of<PatientsBloc>(context).add(
                               AddPatientEvent(newPatient: newPatient),
                             );

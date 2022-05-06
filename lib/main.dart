@@ -26,7 +26,7 @@ void main() async {
           create: (context) => AppointmentsBloc(),
         ),
         BlocProvider(
-          create: (context) => PatientsBloc(),
+          create: (context) => PatientsBloc()..add(GetAllPatientsEvent()),
         ),
       ],
       child: MyApp(),

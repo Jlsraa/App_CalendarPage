@@ -89,7 +89,7 @@ class _ProfileState extends State<Profile> {
                   },
                 ),
                 SizedBox(
-                  height: 40,
+                  height: 20,
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(70, 0, 0, 0),
@@ -185,7 +185,7 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
                 SizedBox(
-                  height: 30.0,
+                  height: 20.0,
                 ),
                 ElevatedButton(
                   onPressed: () {},
