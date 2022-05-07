@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:proyecto_01/content/profile/profile.dart';
 import 'package:proyecto_01/utilities/components/simple_appbar.dart';
 
 import '../../utilities/components/custom_input.dart';
@@ -20,6 +22,7 @@ class _EditProfileState extends State<EditProfile> {
   String? userEmail;
   String? userPhoneNumber;
   String? userAddress;
+
   TextEditingController? _name = TextEditingController();
   TextEditingController? _photo = TextEditingController();
   TextEditingController? _specialty = TextEditingController();
@@ -27,10 +30,19 @@ class _EditProfileState extends State<EditProfile> {
   TextEditingController? _phone = TextEditingController();
   TextEditingController? _address = TextEditingController();
 
+  //var userNameText = _name?.text.toString();
+
   @override
   void initState() {
     super.initState();
-    _fetchData();
+    setState(() {});
+    print(userName);
+  }
+
+  @override
+  void dispose() {
+    _name?.dispose();
+    super.dispose();
   }
 
   @override
@@ -52,15 +64,76 @@ class _EditProfileState extends State<EditProfile> {
                 height: 16.0,
               ),
               SizedBox(height: 16.0),
-              CustomInput(label: "Name", controller: null),
+              Container(
+                width: 300,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextField(
+                      controller: _name,
+                      decoration: InputDecoration(labelText: "Name"),
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ],
+                ),
+              ),
               SizedBox(height: 16.0),
-              CustomInput(label: "Specialty", controller: null),
+              Container(
+                width: 300,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextField(
+                      controller: _specialty,
+                      decoration: InputDecoration(labelText: "Specialty"),
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ],
+                ),
+              ),
               SizedBox(height: 16.0),
-              CustomInput(label: "Telephone Number", controller: null),
+              Container(
+                width: 300,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextField(
+                      controller: _phone,
+                      decoration:
+                          InputDecoration(labelText: "Telephone Number"),
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ],
+                ),
+              ),
               SizedBox(height: 16.0),
-              CustomInput(label: "E-mail", controller: null),
+              Container(
+                width: 300,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextField(
+                      controller: _email,
+                      decoration: InputDecoration(labelText: "E-mail"),
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ],
+                ),
+              ),
               SizedBox(height: 16.0),
-              CustomInput(label: "Location", controller: null),
+              Container(
+                width: 300,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextField(
+                      controller: _address,
+                      decoration: InputDecoration(labelText: "Address"),
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ],
+                ),
+              ),
               SizedBox(height: 30.0),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 40),
@@ -89,7 +162,45 @@ class _EditProfileState extends State<EditProfile> {
                         ),
                         ElevatedButton(
                           onPressed: () {
-                            _updateData();
+                            showDialog(
+                                context: context,
+                                builder: (ctx) => AlertDialog(
+                                      title: Text(
+                                        "Profile edited",
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          color:
+                                              Color.fromRGBO(106, 99, 242, 1),
+                                        ),
+                                      ),
+                                      content: Text("Save your changes?"),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context, 'CANCEL');
+                                          },
+                                          child: Text(
+                                            'CANCEL',
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.grey[700]),
+                                          ),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context, 'OK');
+                                            _updateData();
+                                          },
+                                          child: Text(
+                                            'OK',
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                color: Color.fromRGBO(
+                                                    106, 99, 242, 1)),
+                                          ),
+                                        )
+                                      ],
+                                    ));
                           },
                           child: Text(
                             "Save Changes",
@@ -129,8 +240,8 @@ class _EditProfileState extends State<EditProfile> {
           .doc(firebaseUser.uid)
           .get()
           .then((ds) async {
+        if (!mounted) return;
         setState(() {
-          if (!mounted) return;
           userPhoto = ds.data()!['profilePicture'];
           userName = ds.data()!['name'];
           userSpecialty = ds.data()!['specialty'];
@@ -156,8 +267,8 @@ class _EditProfileState extends State<EditProfile> {
       "phoneNumber": _phone?.text,
       "specialty": _specialty?.text
     }).then((_) {
+      if (!mounted) return;
       print("success!");
-      print(_name?.text);
     });
   }
 }
