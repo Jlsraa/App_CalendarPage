@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:proyecto_01/utilities/components/simple_appbar.dart';
@@ -13,18 +14,37 @@ class EditProfile extends StatefulWidget {
 
 class _EditProfileState extends State<EditProfile> {
   User? user = FirebaseAuth.instance.currentUser;
+  String? userPhoto;
+  String? userName;
+  String? userSpecialty;
+  String? userEmail;
+  String? userPhoneNumber;
+  String? userAddress;
+  TextEditingController? _name = TextEditingController();
+  TextEditingController? _photo = TextEditingController();
+  TextEditingController? _specialty = TextEditingController();
+  TextEditingController? _email = TextEditingController();
+  TextEditingController? _phone = TextEditingController();
+  TextEditingController? _address = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchData();
+  }
 
   @override
   Widget build(BuildContext context) {
+    _fetchData();
     return Scaffold(
       appBar: getSimpleAppBar(context),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
-            children: [
+            children: <Widget>[
               CircleAvatar(
                 minRadius: 48.0,
-                maxRadius: 72.0,
+                maxRadius: 50.0,
                 backgroundImage: NetworkImage(
                     "${FirebaseAuth.instance.currentUser!.photoURL}"),
               ),
@@ -68,7 +88,9 @@ class _EditProfileState extends State<EditProfile> {
                           ),
                         ),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            _updateData();
+                          },
                           child: Text(
                             "Save Changes",
                             style: TextStyle(fontSize: 18),
@@ -97,5 +119,45 @@ class _EditProfileState extends State<EditProfile> {
         ),
       ),
     );
+  }
+
+  Future<dynamic> _fetchData() async {
+    final firebaseUser = await FirebaseAuth.instance.currentUser;
+    if (firebaseUser != null)
+      await FirebaseFirestore.instance
+          .collection('userDoctor')
+          .doc(firebaseUser.uid)
+          .get()
+          .then((ds) async {
+        setState(() {
+          if (!mounted) return;
+          userPhoto = ds.data()!['profilePicture'];
+          userName = ds.data()!['name'];
+          userSpecialty = ds.data()!['specialty'];
+          userEmail = ds.data()!['email'];
+          userPhoneNumber = ds.data()!['phoneNumber'];
+          userAddress = ds.data()!['address'];
+        });
+      }).catchError((e) {
+        print(e);
+      });
+    print(_name);
+  }
+
+  void _updateData() async {
+    final firebaseUser = await FirebaseAuth.instance.currentUser;
+    await FirebaseFirestore.instance
+        .collection("userDoctor")
+        .doc(firebaseUser?.uid)
+        .update({
+      "name": _name?.text,
+      "address": _address?.text,
+      "email": _email?.text,
+      "phoneNumber": _phone?.text,
+      "specialty": _specialty?.text
+    }).then((_) {
+      print("success!");
+      print(_name?.text);
+    });
   }
 }
