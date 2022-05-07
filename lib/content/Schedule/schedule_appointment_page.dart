@@ -91,76 +91,63 @@ class _ScheduleAppointmentPageState extends State<ScheduleAppointmentPage> {
                     ),
                     SizedBox(
                       height: 130.0,
-                      child: BlocConsumer<PatientsBloc, PatientsState>(
-                        listener: (context, state) {},
-                        builder: (context, state) {
-                          if (state is PatientsSuccessState) {
-                            return ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: state.props.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                Patient patient = state.props[index] as Patient;
-                                print(state.props[index]);
-                                return GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      this.selectedIndex = index;
-                                    });
-                                  },
-                                  child: Card(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20),
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: state.props.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          Patient patient = state.props[index] as Patient;
+                          print(state.props[index]);
+                          return GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                this.selectedIndex = index;
+                              });
+                            },
+                            child: Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              color: index == selectedIndex
+                                  ? selectedColor
+                                  : notSelectedColor,
+                              elevation: 3.0,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 32.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      patient.name,
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18),
                                     ),
-                                    color: index == selectedIndex
-                                        ? selectedColor
-                                        : notSelectedColor,
-                                    elevation: 3.0,
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 32.0),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        mainAxisSize: MainAxisSize.max,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            patient.name,
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18),
-                                          ),
-                                          SizedBox(
-                                            height: 15,
-                                          ),
-                                          Text(
-                                            "Last visit:",
-                                            textAlign: TextAlign.start,
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                          Text(
-                                            patient.getDateFormat(),
-                                            textAlign: TextAlign.start,
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ],
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    Text(
+                                      "Last visit:",
+                                      textAlign: TextAlign.start,
+                                      style: TextStyle(
+                                        color: Colors.white,
                                       ),
                                     ),
-                                  ),
-                                );
-                              },
-                            );
-                          } else {
-                            return Card(
-                              child: Text("No patients"),
-                            );
-                          }
+                                    Text(
+                                      patient.getDateFormat(),
+                                      textAlign: TextAlign.start,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
                         },
                       ),
                     ),
