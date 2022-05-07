@@ -1,6 +1,7 @@
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:proyecto_01/content/Day_Calendar/bloc/appointmentsfortoday_bloc.dart';
 import 'package:proyecto_01/content/Schedule/bloc/appointments_bloc.dart';
 import 'package:proyecto_01/content/patients/create_patient.dart';
 
@@ -269,6 +270,9 @@ class _ScheduleAppointmentPageState extends State<ScheduleAppointmentPage> {
                                   Navigator.pop(context, 'OK');
                                   dateController.clear();
                                   notesController.clear();
+                                  BlocProvider.of<AppointmentsfortodayBloc>(
+                                          context)
+                                      .add(GetAppointmentsForTodayEvent());
                                 },
                                 child: Text(
                                   'OK',

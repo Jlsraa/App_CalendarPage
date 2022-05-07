@@ -46,7 +46,6 @@ class AppointmentsfortodayBloc
           .map((doc) => doc.id)
           .toList();
       // ********************************************************
-
       // Query to get all appointments ****
       var queryAppointments =
           await FirebaseFirestore.instance.collection("userSchedule").get();
@@ -64,21 +63,31 @@ class AppointmentsfortodayBloc
 
       List<Meeting> meetingsForToday = [];
 
-      String name = "Sin nombre";
+      String name;
       for (var i = 0; i < appointmentsFiltered.length; i++) {
         if (patientsFilteredIDs.contains(appointmentsFiltered[i]["patient"])) {
-          name = patientsFiltered[i]["name"];
+          int index = 0;
+          for (var patientID in patientsFilteredIDs) {
+            if (patientID != appointmentsFiltered[i]["patient"]) {
+              index++;
+            } else {
+              break;
+            }
+          }
+
+          name = patientsFiltered[index]["name"];
+
+          DateTime start = DateTime.parse(appointmentsFiltered[i]["date"]);
+          final DateTime end = start.add(const Duration(minutes: 30));
+          Meeting meeting = Meeting(
+              eventName: name,
+              from: start,
+              to: end,
+              background: Color.fromRGBO(106, 99, 242, 1),
+              details: 'Última vez que visitó: lol',
+              isAllDay: false);
+          meetingsForToday.add(meeting);
         }
-        DateTime start = DateTime.parse(appointmentsFiltered[i]["date"]);
-        final DateTime end = start.add(const Duration(minutes: 30));
-        Meeting meeting = Meeting(
-            eventName: name,
-            from: start,
-            to: end,
-            background: Color.fromRGBO(106, 99, 242, 1),
-            details: 'Última vez que visitó: lol',
-            isAllDay: false);
-        meetingsForToday.add(meeting);
       }
 
       emit(SuccessAppointmentsState(meetings: meetingsForToday));

@@ -7,6 +7,10 @@ class MeetingDataSource extends CalendarDataSource {
     appointments = source;
   }
 
+  String getEventName(int index) {
+    return this.appointments![index].eventName;
+  }
+
   @override
   DateTime getStartTime(int index) {
     return appointments![index].from;
@@ -27,7 +31,6 @@ class MeetingDataSource extends CalendarDataSource {
     return appointments![index].background;
   }
 
-  // @override
   String details(int index) {
     return appointments![index].details;
   }
@@ -35,5 +38,10 @@ class MeetingDataSource extends CalendarDataSource {
   @override
   bool isAllDay(int index) {
     return appointments![index].isAllDay;
+  }
+
+  @override
+  String getNotes(int index) {
+    return this.appointments![index].details;
   }
 }

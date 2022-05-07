@@ -35,18 +35,21 @@ class CalendarPage extends StatefulWidget {
 //   final DateTime startTime =
 //       DateTime(today.year, today.month, today.day, 15, 0, 0);
 //   final DateTime endTime = startTime.add(const Duration(hours: 2));
-
+//  DataSource _getCalendarDataSource() {
+//    List<Appointment> appointments = <Appointment>[];
+//    appointments.add(Appointment(
+//      startTime: DateTime.now(),
+//      endTime: DateTime.now().add(Duration(hours: 2)),
+//      isAllDay: true,
+//      subject: 'Meeting',
+//      color: Colors.blue,
+//      startTimeZone: '',
+//      endTimeZone: '',
+//    ));
 //   return meetings;
 // }
 
 class _CalendarPageState extends State<CalendarPage> {
-  @override
-  void initState() {
-    super.initState();
-    setState(() {});
-    print(userName);
-  }
-
   String? userName;
   @override
   Widget build(BuildContext context) {
