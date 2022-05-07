@@ -49,7 +49,7 @@ class _ProfileState extends State<Profile> {
           ),
           Container(
             child: Column(
-              mainAxisSize: MainAxisSize.min,
+              mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 200, 0, 5),
@@ -93,7 +93,7 @@ class _ProfileState extends State<Profile> {
                   height: 40,
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(70, 0, 0, 0),
+                  padding: const EdgeInsets.fromLTRB(45, 0, 30, 0),
                   child: Column(
                     children: [
                       Row(
@@ -115,7 +115,7 @@ class _ProfileState extends State<Profile> {
                                       ConnectionState.done)
                                     return CircularProgressIndicator();
                                   return Text(
-                                    "${user!.email}",
+                                    "${userPhoneNumber}",
                                     style: TextStyle(fontSize: 16),
                                   );
                                 },
@@ -144,7 +144,7 @@ class _ProfileState extends State<Profile> {
                                   ConnectionState.done)
                                 return CircularProgressIndicator();
                               return Text(
-                                "$userPhoneNumber",
+                                "$userEmail",
                                 style: TextStyle(fontSize: 16),
                               );
                             },
@@ -164,7 +164,7 @@ class _ProfileState extends State<Profile> {
                           SizedBox(
                             width: 20,
                           ),
-                          FutureBuilder<dynamic>(
+                          FutureBuilder(
                             future: _fetch(),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState !=
@@ -172,9 +172,8 @@ class _ProfileState extends State<Profile> {
                                 return CircularProgressIndicator();
                               return Flexible(
                                 child: Text(
-                                  // "$userAddress",
-                                  "hola esta es mi dirección super larga, que probablemente no quepa en el espacio asignado",
-                                  overflow: TextOverflow.ellipsis,
+                                  "$userAddress",
+                                  overflow: TextOverflow.clip,
                                   style: TextStyle(fontSize: 16),
                                 ),
                               );
@@ -214,7 +213,7 @@ class _ProfileState extends State<Profile> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => EditProfile()),
-                      );
+                      ).then((value) => setState(() {}));
                     },
                   ),
                 )
