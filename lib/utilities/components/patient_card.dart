@@ -1,19 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '../../content/patients/patient_info.dart';
+import '../patient.dart';
 
 class PatientCard extends StatelessWidget {
-  final String name;
-  final String phone;
-  final String email;
-  final String lastVisit;
+  final Patient patient;
 
-  PatientCard({
-    required this.name,
-    required this.phone,
-    required this.email,
-    required this.lastVisit,
-  });
+  PatientCard({required this.patient});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +14,10 @@ class PatientCard extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => PatientDetail()),
+          MaterialPageRoute(
+              builder: (context) => PatientDetail(
+                    patient: this.patient,
+                  )),
         );
       },
       child: Card(
@@ -35,7 +31,7 @@ class PatientCard extends StatelessWidget {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  name,
+                  this.patient.name,
                   style: TextStyle(
                     fontSize: 20.0,
                     fontWeight: FontWeight.w600,
@@ -44,21 +40,21 @@ class PatientCard extends StatelessWidget {
                 ),
               ),
               ListTile(
-                title: Text(email),
+                title: Text(this.patient.email),
                 leading: Icon(
                   Icons.email,
                   color: Color.fromRGBO(106, 99, 242, 1),
                 ),
               ),
               ListTile(
-                title: Text(phone),
+                title: Text(this.patient.phoneNumber),
                 leading: Icon(
                   Icons.phone,
                   color: Color.fromRGBO(106, 99, 242, 1),
                 ),
               ),
               ListTile(
-                title: Text("Last visit: ${lastVisit}"),
+                title: Text("Last visit: ${this.patient.getDateFormat()}"),
               )
             ],
           ),

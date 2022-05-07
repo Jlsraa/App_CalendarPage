@@ -52,11 +52,16 @@ class PatientsBloc extends Bloc<PatientsEvent, PatientsState> {
         final DateTime date = timestamp.toDate();
 
         Patient patient = Patient(
-            email: patientsFiltered[i]["email"],
-            phone: patientsFiltered[i]["phoneNumber"],
-            lastVisit: date,
-            name: patientsFiltered[i]["name"],
-            id: "${patientsFilteredIDs[i]}");
+          email: patientsFiltered[i]["email"],
+          phoneNumber: patientsFiltered[i]["phoneNumber"],
+          lastVisit: date,
+          name: patientsFiltered[i]["name"],
+          id: "${patientsFilteredIDs[i]}",
+          age: "${patientsFiltered[i]["age"]}",
+          notes: patientsFiltered[i]["notes"],
+          profilePhoto: patientsFiltered[i]["profilePhoto"],
+          gender: patientsFiltered[i]["gender"],
+        );
         patients.add(patient);
       }
       emit(PatientsSuccessState(patients: patients));

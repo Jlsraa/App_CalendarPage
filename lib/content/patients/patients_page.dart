@@ -42,16 +42,16 @@ class _PatientsPageState extends State<PatientsPage> {
 
   PatientCard getPatientAsCard(dynamic patFormat) {
     Patient patient = Patient(
-        email: patFormat.email,
-        phone: patFormat.phone,
-        lastVisit: patFormat.lastVisit,
-        name: patFormat.name,
-        id: patFormat.id);
-    return PatientCard(
-        name: patient.name,
-        phone: patient.phone,
-        email: patient.email,
-        lastVisit:
-            "${patient.lastVisit!.day}/${patient.lastVisit!.month}/${patient.lastVisit!.year}");
+      email: patFormat.email,
+      phoneNumber: patFormat.phoneNumber,
+      lastVisit: patFormat.lastVisit,
+      name: patFormat.name,
+      id: patFormat.id,
+      age: patFormat.age,
+      notes: patFormat.notes,
+      profilePhoto: 'https://source.unsplash.com/random',
+      gender: patFormat.gender,
+    );
+    return PatientCard(patient: patient);
   }
 }

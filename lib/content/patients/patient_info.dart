@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:proyecto_01/utilities/patient.dart';
 
 import '../../utilities/components/simple_appbar.dart';
 
 class PatientDetail extends StatefulWidget {
+  final Patient patient;
+
+  PatientDetail({required this.patient});
+
   @override
   State<PatientDetail> createState() => _PatientDetailState();
 }
@@ -23,8 +28,7 @@ class _PatientDetailState extends State<PatientDetail> {
                 padding: const EdgeInsets.fromLTRB(0, 30, 0, 30),
                 child: CircleAvatar(
                   backgroundColor: Colors.grey,
-                  backgroundImage:
-                      NetworkImage('https://source.unsplash.com/random'),
+                  backgroundImage: NetworkImage(widget.patient.profilePhoto),
                   radius: 70,
                 ),
               ),
@@ -32,7 +36,7 @@ class _PatientDetailState extends State<PatientDetail> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Alberto Romano",
+                    widget.patient.name,
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     //textAlign: TextAlign.center,
                   ),
@@ -41,20 +45,22 @@ class _PatientDetailState extends State<PatientDetail> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Sexo: Masculino", style: TextStyle(fontSize: 16)),
+                  Text("Gender: ${widget.patient.gender}",
+                      style: TextStyle(fontSize: 16)),
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Edad: 21 años", style: TextStyle(fontSize: 16)),
+                  Text("Age: ${widget.patient.age} years old",
+                      style: TextStyle(fontSize: 16)),
                 ],
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 40, 0, 20),
                 child: Row(
                   children: [
-                    Text("Última visita: 05/03/22",
+                    Text("Last visit: ${widget.patient.getDateFormat()}",
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold)),
                   ],
@@ -62,45 +68,45 @@ class _PatientDetailState extends State<PatientDetail> {
               ),
               Row(
                 children: [
-                  Text("Estudios recientes:", style: TextStyle(fontSize: 16)),
+                  Text("Recent notes:", style: TextStyle(fontSize: 16)),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-                child: Row(
-                  children: [
-                    Text("- Hemograma Completo",
-                        style: TextStyle(fontSize: 16)),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-                child: Row(
-                  children: [
-                    Text("- Perfil lipídico", style: TextStyle(fontSize: 16)),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-                child: Row(
-                  children: [
-                    Text(
-                      "Descripción:",
-                      textAlign: TextAlign.start,
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+              //   child: Row(
+              //     children: [
+              //       Text("- Hemograma Completo",
+              //           style: TextStyle(fontSize: 16)),
+              //     ],
+              //   ),
+              // ),
+              // Padding(
+              //   padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+              //   child: Row(
+              //     children: [
+              //       Text("- Perfil lipídico", style: TextStyle(fontSize: 16)),
+              //     ],
+              //   ),
+              // ),
+              // Padding(
+              //   padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+              //   child: Row(
+              //     children: [
+              //       Text(
+              //         "Descripción:",
+              //         textAlign: TextAlign.start,
+              //         style:
+              //             TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              //       ),
+              //     ],
+              //   ),
+              // ),
               Row(
                 verticalDirection: VerticalDirection.down,
                 children: [
                   Flexible(
                     child: Text(
-                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+                      widget.patient.notes,
                       style: TextStyle(fontSize: 16),
                       maxLines: 10,
                       overflow: TextOverflow.clip,
