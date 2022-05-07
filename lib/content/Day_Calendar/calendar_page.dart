@@ -99,6 +99,8 @@ class _CalendarPageState extends State<CalendarPage> {
                       ),
                       timeSlotViewSettings: TimeSlotViewSettings(
                         timeFormat: 'h:mm a',
+                        // startHour: 9,
+                        // endHour: 20,
                         timeIntervalHeight: 80,
                         timeRulerSize: 100,
                         timeTextStyle: TextStyle(

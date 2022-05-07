@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 
 class Meeting {
-  Meeting(this.eventName, this.from, this.to, this.background, this.details,
-      this.isAllDay);
+  Meeting(
+      {required this.eventName,
+      required this.from,
+      required this.to,
+      required this.background,
+      required this.details,
+      required this.isAllDay});
 
   String eventName;
   DateTime from;
@@ -13,6 +18,6 @@ class Meeting {
 
   @override
   String toString() {
-    return "${this.eventName}: <${this.from}:${this.to}>";
+    return "${this.eventName}: <${this.from}:${this.to}> ${this.details}";
   }
 }

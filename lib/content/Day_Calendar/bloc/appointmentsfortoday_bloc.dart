@@ -72,12 +72,12 @@ class AppointmentsfortodayBloc
         DateTime start = DateTime.parse(appointmentsFiltered[i]["date"]);
         final DateTime end = start.add(const Duration(minutes: 30));
         Meeting meeting = Meeting(
-            name,
-            start,
-            end,
-            Color.fromRGBO(106, 99, 242, 1),
-            'Última vez que visitó: lol',
-            false);
+            eventName: name,
+            from: start,
+            to: end,
+            background: Color.fromRGBO(106, 99, 242, 1),
+            details: 'Última vez que visitó: lol',
+            isAllDay: false);
         meetingsForToday.add(meeting);
       }
 
