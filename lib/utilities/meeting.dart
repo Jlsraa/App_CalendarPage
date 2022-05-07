@@ -10,4 +10,9 @@ class Meeting {
   Color background;
   String details;
   bool isAllDay;
+
+  @override
+  String toString() {
+    return "${this.eventName}: <${this.from}:${this.to}>";
+  }
 }

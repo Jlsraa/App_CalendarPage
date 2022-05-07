@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:proyecto_01/utilities/components/custom_appbar.dart';
 import 'package:proyecto_01/utilities/components/patient_card.dart';
-import 'package:proyecto_01/utilities/data/patients_data.dart';
 
 import 'bloc/patients_bloc.dart';
 import '../../utilities/patient.dart';

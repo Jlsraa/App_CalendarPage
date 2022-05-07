@@ -1,11 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:proyecto_01/content/profile/profile.dart';
 import 'package:proyecto_01/utilities/components/simple_appbar.dart';
-
-import '../../utilities/components/custom_input.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({Key? key}) : super(key: key);
@@ -24,7 +20,7 @@ class _EditProfileState extends State<EditProfile> {
   String? userAddress;
 
   TextEditingController? _name = TextEditingController();
-  TextEditingController? _photo = TextEditingController();
+  // TextEditingController? _photo = TextEditingController();
   TextEditingController? _specialty = TextEditingController();
   TextEditingController? _email = TextEditingController();
   TextEditingController? _phone = TextEditingController();

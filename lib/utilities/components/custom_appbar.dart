@@ -75,7 +75,7 @@ dynamic getCustomAppBar(BuildContext context) {
               builder: (context, snapshot) {
                 if (snapshot.connectionState != ConnectionState.done)
                   return CircularProgressIndicator();
-                return Flexible(
+                return Container(
                   child: Text(
                     "${userName}",
                     textAlign: TextAlign.end,
@@ -83,6 +83,7 @@ dynamic getCustomAppBar(BuildContext context) {
                         color: Colors.grey[900],
                         fontWeight: FontWeight.w300,
                         fontSize: 20),
+                    overflow: TextOverflow.clip,
                   ),
                 );
               },
@@ -101,10 +102,8 @@ dynamic getCustomAppBar(BuildContext context) {
             builder: (context, snapshot) {
               if (snapshot.connectionState != ConnectionState.done)
                 return CircularProgressIndicator();
-              return Flexible(
-                child: CircleAvatar(
-                  backgroundImage: NetworkImage("${user!.photoURL}"),
-                ),
+              return CircleAvatar(
+                backgroundImage: NetworkImage("${user!.photoURL}"),
               );
             },
           ),

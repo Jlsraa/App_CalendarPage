@@ -24,7 +24,7 @@ class AppointmentsBloc extends Bloc<AppointmentsEvent, AppointmentsState> {
   Future updateUserDocumentReference(String id) async {
     try {
       var queryUser = await FirebaseFirestore.instance
-          .collection('users')
+          .collection('userDoctor')
           .doc("${FirebaseAuth.instance.currentUser!.uid}");
       var docsRef = await queryUser.get();
       List<dynamic> listIds = docsRef.data()?["patients"] ?? [];

@@ -169,10 +169,11 @@ class _ProfileState extends State<Profile> {
                               if (snapshot.connectionState !=
                                   ConnectionState.done)
                                 return CircularProgressIndicator();
-                              return Flexible(
+                              return Container(
+                                width: MediaQuery.of(context).size.width / 3,
                                 child: Text(
                                   "$userAddress",
-                                  overflow: TextOverflow.clip,
+                                  overflow: TextOverflow.ellipsis,
                                   style: TextStyle(fontSize: 16),
                                 ),
                               );

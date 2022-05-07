@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:proyecto_01/utilities/components/custom_appbar.dart';
-import 'package:proyecto_01/utilities/meeting.dart';
 import 'package:proyecto_01/utilities/meeting_data_source.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
@@ -17,31 +16,28 @@ class CalendarPage extends StatefulWidget {
   State<CalendarPage> createState() => _CalendarPageState();
 }
 
-List<Meeting> _getDataSource(BuildContext context) {
-  List<Meeting> meetings = [];
+// List<Meeting> _getDataSource(BuildContext context) {
+//   BlocProvider.of<AppointmentsfortodayBloc>(context)
+//       .add(GetAppointmentsForTodayEvent());
 
-  BlocProvider.of<AppointmentsfortodayBloc>(context)
-      .add(GetAppointmentsForTodayEvent());
+//   List<Meeting> meetings = [];
 
-  final DateTime today = DateTime.now();
-  final DateTime startTime =
-      DateTime(today.year, today.month, today.day, 15, 0, 0);
-  final DateTime endTime = startTime.add(const Duration(hours: 2));
+//   BlocConsumer<AppointmentsfortodayBloc, AppointmentsfortodayState>(
+//     listener: (context, state) {},
+//     builder: (context, state) {
+//       meetings = state.props as List<Meeting>;
+//       MeetingDataSource mds = MeetingDataSource(meetings);
+//       return mds as Widget;
+//     },
+//   );
 
-  // Event
-  meetings.add(
-    Meeting(
-      'Paciente 1',
-      startTime,
-      endTime,
-      Color.fromRGBO(106, 99, 242, 1),
-      'Última vez que visitó: 05 de marzo de 2022',
-      false,
-    ),
-  );
+//   final DateTime today = DateTime.now();
+//   final DateTime startTime =
+//       DateTime(today.year, today.month, today.day, 15, 0, 0);
+//   final DateTime endTime = startTime.add(const Duration(hours: 2));
 
-  return meetings;
-}
+//   return meetings;
+// }
 
 class _CalendarPageState extends State<CalendarPage> {
   String? userName;
@@ -61,10 +57,12 @@ class _CalendarPageState extends State<CalendarPage> {
                   builder: (context, snapshot) {
                     if (snapshot.connectionState != ConnectionState.done)
                       return CircularProgressIndicator();
-                    return Flexible(
+                    return Container(
+                      width: MediaQuery.of(context).size.width - 100,
                       child: Text(
                         "Welcome, ${userName!.split(" ")[0]}",
                         textAlign: TextAlign.start,
+                        overflow: TextOverflow.clip,
                         style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
@@ -88,41 +86,54 @@ class _CalendarPageState extends State<CalendarPage> {
               ],
             ),
             // Calendario
-            Expanded(
-              flex: 1,
-              child: SfCalendar(
-                view: CalendarView.day,
-                dataSource: MeetingDataSource(
-                  _getDataSource(context),
-                ),
-                timeSlotViewSettings: TimeSlotViewSettings(
-                  timeFormat: 'h:mm a',
-                  timeIntervalHeight: 80,
-                  timeRulerSize: 100,
-                  timeTextStyle: TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey[900],
-                  ),
-                ),
-                cellBorderColor: Colors.transparent,
-                todayHighlightColor: Color.fromRGBO(106, 99, 242, 1),
-                viewHeaderStyle: ViewHeaderStyle(),
-                showCurrentTimeIndicator: true,
-                headerDateFormat: 'MMMMEEEEd',
-                viewHeaderHeight: 0,
-                appointmentTimeTextFormat: 'hh:mm a',
-                selectionDecoration: BoxDecoration(
-                    color: Colors.transparent,
-                    border: Border.all(
-                        color: const Color.fromRGBO(106, 99, 242, 1), width: 2),
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
-                    shape: BoxShape.rectangle),
-                appointmentTextStyle: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white,
-                ),
-              ),
+            BlocConsumer<AppointmentsfortodayBloc, AppointmentsfortodayState>(
+              listener: (context, state) {},
+              builder: (context, state) {
+                if (state is SuccessAppointmentsState) {
+                  return Expanded(
+                    flex: 1,
+                    child: SfCalendar(
+                      view: CalendarView.day,
+                      dataSource: MeetingDataSource(
+                        state.meetings,
+                      ),
+                      timeSlotViewSettings: TimeSlotViewSettings(
+                        timeFormat: 'h:mm a',
+                        timeIntervalHeight: 80,
+                        timeRulerSize: 100,
+                        timeTextStyle: TextStyle(
+                          fontSize: 16,
+                          color: Colors.grey[900],
+                        ),
+                      ),
+                      cellBorderColor: Colors.transparent,
+                      todayHighlightColor: Color.fromRGBO(106, 99, 242, 1),
+                      viewHeaderStyle: ViewHeaderStyle(),
+                      showCurrentTimeIndicator: true,
+                      headerDateFormat: 'MMMMEEEEd',
+                      viewHeaderHeight: 0,
+                      appointmentTimeTextFormat: 'hh:mm a',
+                      selectionDecoration: BoxDecoration(
+                          color: Colors.transparent,
+                          border: Border.all(
+                              color: const Color.fromRGBO(106, 99, 242, 1),
+                              width: 2),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(10)),
+                          shape: BoxShape.rectangle),
+                      appointmentTextStyle: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white,
+                      ),
+                    ),
+                  );
+                } else if (state is LoadingAppointmentsState) {
+                  return CircularProgressIndicator();
+                } else {
+                  return Text("Error");
+                }
+              },
             )
           ],
         ),

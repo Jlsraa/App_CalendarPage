@@ -23,28 +23,28 @@ class PatientsBloc extends Bloc<PatientsEvent, PatientsState> {
           .doc("${FirebaseAuth.instance.currentUser!.uid}");
       // get data from document
       var docsRef = await queryUser.get();
-      List<dynamic> patientsIds = docsRef.data()?["patients"] ?? [];
+      List<dynamic> doctorPatients = docsRef.data()?["patients"] ?? [];
       // ********************************************************
 
       // Get all patients ***
       var queryPatients =
           await FirebaseFirestore.instance.collection("patients").get();
+      var allPatients = queryPatients.docs;
       // ********************************************************
 
       // Filter patients -> They must be included in doctor's patients list
-      List<Map<String, dynamic>> patientsFiltered = queryPatients.docs
-          .where((doc) => patientsIds.contains(doc.id))
+      List<Map<String, dynamic>> patientsFiltered = allPatients
+          .where((doc) => doctorPatients.contains(doc.id))
           .map((doc) => doc.data().cast<String, dynamic>())
           .toList();
       // Save a list of IDS just to be able to create a patient instance
       List<dynamic> patientsFilteredIDs = queryPatients.docs
-          .where((doc) => patientsIds.contains(doc.id))
+          .where((doc) => doctorPatients.contains(doc.id))
+          .map((doc) => doc.id)
           .toList();
       // ********************************************************
-
       // Save the doctor's patients into a list and sent it back
       final List<Patient> patients = [];
-
       for (var i = 0; i < patientsFilteredIDs.length; i++) {
         final Timestamp timestamp =
             patientsFiltered[i]['lastVisited'] ?? Timestamp.now();

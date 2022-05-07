@@ -96,7 +96,6 @@ class _ScheduleAppointmentPageState extends State<ScheduleAppointmentPage> {
                         itemCount: state.props.length,
                         itemBuilder: (BuildContext context, int index) {
                           Patient patient = state.props[index] as Patient;
-                          print(state.props[index]);
                           return GestureDetector(
                             onTap: () {
                               setState(() {
@@ -182,7 +181,7 @@ class _ScheduleAppointmentPageState extends State<ScheduleAppointmentPage> {
                           showCursor: false,
                           type: DateTimePickerType.dateTimeSeparate,
                           dateMask: 'd MMM, yyyy',
-                          // initialValue: DateTime.now().toString(),
+                          // initialValue: DateTime.now().toString(),:()
                           firstDate: DateTime.now(),
                           lastDate: DateTime(2050),
                           icon: const Icon(Icons.event),
