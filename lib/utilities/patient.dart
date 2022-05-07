@@ -15,4 +15,9 @@ class Patient {
   String getDateFormat() {
     return "${this.lastVisit!.day}/${this.lastVisit!.month}/${this.lastVisit!.year}";
   }
+
+  @override
+  String toString() {
+    return "Name:${this.name}";
+  }
 }

@@ -31,10 +31,9 @@ class _ProfileState extends State<Profile> {
             image: AssetImage('assets/images/profile_bg.png'),
             fit: BoxFit.fill,
           ),
-          Container(
-            padding: EdgeInsets.fromLTRB(20, 50, 330, 700),
-            height: 100,
-            width: 50,
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(vertical: 32.0, horizontal: 16.0),
             child: IconButton(
               alignment: Alignment.topLeft,
               onPressed: () {
@@ -90,7 +89,7 @@ class _ProfileState extends State<Profile> {
                   },
                 ),
                 SizedBox(
-                  height: 40,
+                  height: 20,
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(45, 0, 30, 0),
@@ -185,7 +184,7 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
                 SizedBox(
-                  height: 30.0,
+                  height: 20.0,
                 ),
                 ElevatedButton(
                   onPressed: () {},

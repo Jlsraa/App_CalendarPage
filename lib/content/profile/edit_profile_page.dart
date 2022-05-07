@@ -52,95 +52,15 @@ class _EditProfileState extends State<EditProfile> {
                 height: 16.0,
               ),
               SizedBox(height: 16.0),
-              Container(
-                width: 300,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Name",
-                      style: TextStyle(fontSize: 16),
-                      textAlign: TextAlign.start,
-                    ),
-                    TextField(
-                      controller: _name,
-                      style: TextStyle(fontSize: 20),
-                    ),
-                  ],
-                ),
-              ),
+              CustomInput(label: "Name", controller: null),
               SizedBox(height: 16.0),
-              Container(
-                width: 300,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Specialty",
-                      style: TextStyle(fontSize: 16),
-                      textAlign: TextAlign.start,
-                    ),
-                    TextField(
-                      controller: _specialty,
-                      style: TextStyle(fontSize: 20),
-                    ),
-                  ],
-                ),
-              ),
+              CustomInput(label: "Specialty", controller: null),
               SizedBox(height: 16.0),
-              Container(
-                width: 300,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Telephone Number",
-                      style: TextStyle(fontSize: 16),
-                      textAlign: TextAlign.start,
-                    ),
-                    TextField(
-                      controller: _phone,
-                      style: TextStyle(fontSize: 20),
-                    ),
-                  ],
-                ),
-              ),
+              CustomInput(label: "Telephone Number", controller: null),
               SizedBox(height: 16.0),
-              Container(
-                width: 300,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "E-mail",
-                      style: TextStyle(fontSize: 16),
-                      textAlign: TextAlign.start,
-                    ),
-                    TextField(
-                      controller: _email,
-                      style: TextStyle(fontSize: 20),
-                    ),
-                  ],
-                ),
-              ),
+              CustomInput(label: "E-mail", controller: null),
               SizedBox(height: 16.0),
-              Container(
-                width: 300,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Location",
-                      style: TextStyle(fontSize: 16),
-                      textAlign: TextAlign.start,
-                    ),
-                    TextField(
-                      controller: _address,
-                      style: TextStyle(fontSize: 20),
-                    ),
-                  ],
-                ),
-              ),
+              CustomInput(label: "Location", controller: null),
               SizedBox(height: 30.0),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 40),

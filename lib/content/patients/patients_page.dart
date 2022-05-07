@@ -4,8 +4,8 @@ import 'package:proyecto_01/utilities/components/custom_appbar.dart';
 import 'package:proyecto_01/utilities/components/patient_card.dart';
 import 'package:proyecto_01/utilities/data/patients_data.dart';
 
-import '../content/patients/bloc/patients_bloc.dart';
-import '../utilities/patient.dart';
+import 'bloc/patients_bloc.dart';
+import '../../utilities/patient.dart';
 
 class PatientsPage extends StatefulWidget {
   const PatientsPage({Key? key}) : super(key: key);
@@ -29,10 +29,10 @@ class _PatientsPageState extends State<PatientsPage> {
           listener: (context, state) {},
           builder: (context, state) {
             return ListView.builder(
-              itemCount: patients.length,
+              itemCount: state.props.length,
               itemBuilder: (BuildContext context, int index) {
-                // return getPatientAsCard(state.props[index]);
-                return getPatientAsCard(patients[index]);
+                return getPatientAsCard(state.props[index]);
+                // return getPatientAsCard(patients[index]);
               },
             );
           },

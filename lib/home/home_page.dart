@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:proyecto_01/content/appointments/appointment_page.dart';
 import '../content/Day_Calendar/calendar_page.dart';
 import '../content/Schedule/schedule_appointment_page.dart';
-import '../pages/patients_page.dart';
+import '../content/patients/patients_page.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);

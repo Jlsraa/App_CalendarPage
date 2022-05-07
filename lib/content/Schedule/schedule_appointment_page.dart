@@ -2,6 +2,7 @@ import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:proyecto_01/content/Schedule/bloc/appointments_bloc.dart';
+import 'package:proyecto_01/content/patients/create_patient.dart';
 
 import '../../utilities/components/custom_appbar.dart';
 import '../../utilities/data/patients_data.dart';
@@ -56,11 +57,20 @@ class _ScheduleAppointmentPageState extends State<ScheduleAppointmentPage> {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  Text(
-                    "Add patient",
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w300,
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CreatePatient()),
+                      );
+                    },
+                    child: Text(
+                      "Add patient",
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.w300,
+                      ),
                     ),
                   ),
                 ],

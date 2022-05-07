@@ -16,7 +16,11 @@ class PatientsSuccessState extends PatientsState {
 
   PatientsSuccessState({required this.patients});
   @override
-  List<Object> get props => [this.patients];
+  List<Object> get props => this.patients;
 }
 
 class PatientsErrorState extends PatientsState {}
+
+class AddedPatientState extends PatientsState {}
+
+class ErrorAddingPatientState extends PatientsState {}

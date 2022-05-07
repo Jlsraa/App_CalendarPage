@@ -22,8 +22,6 @@ class AppointmentsfortodayBloc
       var queryUser = await FirebaseFirestore.instance
           .collection("userDoctor")
           .doc("${FirebaseAuth.instance.currentUser!.uid}");
-      var data = await queryUser.get();
-      print(data.data());
       // get data from document
       var docsRef = await queryUser.get();
       List<dynamic> listIds = docsRef.data()?["patients"] ?? [];
