@@ -32,7 +32,6 @@ class _EditProfileState extends State<EditProfile> {
   void initState() {
     super.initState();
     setState(() {});
-    print(userName);
   }
 
   @override

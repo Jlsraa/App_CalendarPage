@@ -40,6 +40,13 @@ class CalendarPage extends StatefulWidget {
 // }
 
 class _CalendarPageState extends State<CalendarPage> {
+  @override
+  void initState() {
+    super.initState();
+    setState(() {});
+    print(userName);
+  }
+
   String? userName;
   @override
   Widget build(BuildContext context) {
