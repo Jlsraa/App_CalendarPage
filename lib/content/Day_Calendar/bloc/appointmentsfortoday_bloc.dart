@@ -26,18 +26,38 @@ class AppointmentsfortodayBloc
       var docsRef = await queryUser.get();
       List<dynamic> listIds = docsRef.data()?["patients"] ?? [];
 
+      // query to get all patients from doctor
+      var queryPatients =
+          await FirebaseFirestore.instance.collection("patients").get();
+
+      List<Map<String, dynamic>> patientsList = queryPatients.docs
+          .where((doc) {
+            print(doc.data());
+            return listIds.contains(doc.data()["patient"]);
+          })
+          .map((doc) => doc.data().cast<String, dynamic>())
+          .toList();
+
       // query to get documents from userSchedule
-      var queryPictures =
+      var queryAppointments =
           await FirebaseFirestore.instance.collection("userSchedule").get();
 
       // filter everything (that it belongs to current user
-      List<Map<String, dynamic>> meetingsList = queryPictures.docs
-          .where((doc) => listIds.contains(doc.id))
+      List<Map<String, dynamic>> meetingsList = queryAppointments.docs
+          .where((doc) {
+            print(doc.data());
+            return listIds.contains(doc.data()["patient"]);
+          })
           .map((doc) => doc.data().cast<String, dynamic>())
           .toList();
-      List<Meeting> meetingsForToday = [];
 
-      emit(SuccessAppointmentsState(meetings: meetingsForToday));
+      // List<Meeting> meetingsForToday = [];
+
+      for (var meeting in meetingsList) {
+        print(meeting);
+      }
+
+      // emit(SuccessAppointmentsState(meetings: meetingsForToday));
     } catch (e) {
       print("Error while getting disabled items: ${e}");
       emit(ErrorAppointmentsState());

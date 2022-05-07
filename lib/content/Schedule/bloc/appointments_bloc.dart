@@ -17,7 +17,8 @@ class AppointmentsBloc extends Bloc<AppointmentsEvent, AppointmentsState> {
     var docRef = await FirebaseFirestore.instance
         .collection('userSchedule')
         .add(event.appointmentData);
-    return await updateUserDocumentReference(docRef.id);
+    await updateUserDocumentReference(docRef.id);
+    emit(SuccessNewAppointmentState());
   }
 
   Future updateUserDocumentReference(String id) async {
@@ -26,11 +27,10 @@ class AppointmentsBloc extends Bloc<AppointmentsEvent, AppointmentsState> {
           .collection('users')
           .doc("${FirebaseAuth.instance.currentUser!.uid}");
       var docsRef = await queryUser.get();
-      List<dynamic> listIds = docsRef.data()?["patients"];
+      List<dynamic> listIds = docsRef.data()?["patients"] ?? [];
 
       listIds.add(id);
       await queryUser.update({"patients": listIds});
-      emit(SuccessNewAppointmentState());
     } catch (e) {
       print("Error al actualizar users collection${e}");
       return false;
