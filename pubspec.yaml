@@ -32,7 +32,7 @@ dependencies:
   flutter_bloc:
   equatable:
   date_time_picker:
-  http:
+  image_picker:
   # Firebase
   firebase_auth:
   firebase_core:

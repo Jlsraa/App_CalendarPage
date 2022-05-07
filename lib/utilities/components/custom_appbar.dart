@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,12 +6,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../auth/bloc/auth_bloc.dart';
 import '../../content/profile/profile.dart';
 
-late String userPhoto;
-late String userName;
+String? userPhoto;
+String? userName;
 
 dynamic getCustomAppBar(BuildContext context) {
   User? user = FirebaseAuth.instance.currentUser;
-
   return AppBar(
     // centerTitle: false,
     leading: IconButton(
@@ -70,13 +70,22 @@ dynamic getCustomAppBar(BuildContext context) {
                 MaterialPageRoute(builder: (context) => Profile()),
               );
             },
-            child: Text(
-              "${user!.displayName}",
-              textAlign: TextAlign.end,
-              style: TextStyle(
-                  color: Colors.grey[900],
-                  fontWeight: FontWeight.w300,
-                  fontSize: 20),
+            child: FutureBuilder(
+              future: _fetch(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState != ConnectionState.done)
+                  return CircularProgressIndicator();
+                return Flexible(
+                  child: Text(
+                    "${userName}",
+                    textAlign: TextAlign.end,
+                    style: TextStyle(
+                        color: Colors.grey[900],
+                        fontWeight: FontWeight.w300,
+                        fontSize: 20),
+                  ),
+                );
+              },
             ),
           ),
         ),
@@ -87,13 +96,36 @@ dynamic getCustomAppBar(BuildContext context) {
               MaterialPageRoute(builder: (context) => Profile()),
             );
           },
-          child: CircleAvatar(
-            backgroundImage: NetworkImage("${user.photoURL}"),
+          child: FutureBuilder(
+            future: _fetch(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState != ConnectionState.done)
+                return CircularProgressIndicator();
+              return Flexible(
+                child: CircleAvatar(
+                  backgroundImage: NetworkImage("${user!.photoURL}"),
+                ),
+              );
+            },
           ),
         ),
       ],
     ),
   );
+}
+
+Future<dynamic> _fetch() async {
+  final firebaseUser = await FirebaseAuth.instance.currentUser;
+  if (firebaseUser != null)
+    await FirebaseFirestore.instance
+        .collection('userDoctor')
+        .doc(firebaseUser.uid)
+        .get()
+        .then((ds) {
+      userName = ds.data()!['name'];
+    }).catchError((e) {
+      print(e);
+    });
 }
 
 // AppBar customAppBar = AppBar(

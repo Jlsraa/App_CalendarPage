@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -43,7 +44,7 @@ List<Meeting> _getDataSource(BuildContext context) {
 }
 
 class _CalendarPageState extends State<CalendarPage> {
-  User? user = FirebaseAuth.instance.currentUser;
+  String? userName;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,13 +56,22 @@ class _CalendarPageState extends State<CalendarPage> {
           children: [
             Row(
               children: [
-                Text(
-                  "Welcome, ${user!.displayName!.split(" ")[0]}",
-                  textAlign: TextAlign.start,
-                  style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87),
+                FutureBuilder(
+                  future: _fetch(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState != ConnectionState.done)
+                      return CircularProgressIndicator();
+                    return Flexible(
+                      child: Text(
+                        "Welcome, ${userName!.split(" ")[0]}",
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black87),
+                      ),
+                    );
+                  },
                 ),
               ],
             ),
@@ -118,5 +128,19 @@ class _CalendarPageState extends State<CalendarPage> {
         ),
       ),
     );
+  }
+
+  Future _fetch() async {
+    final firebaseUser = await FirebaseAuth.instance.currentUser;
+    if (firebaseUser != null)
+      await FirebaseFirestore.instance
+          .collection('userDoctor')
+          .doc(firebaseUser.uid)
+          .get()
+          .then((ds) {
+        userName = ds.data()!['name'];
+      }).catchError((e) {
+        print(e);
+      });
   }
 }
