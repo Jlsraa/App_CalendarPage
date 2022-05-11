@@ -43,7 +43,7 @@ class _ScheduleAppointmentPageState extends State<ScheduleAppointmentPage> {
           child: BlocConsumer<PatientsBloc, PatientsState>(
             listener: (context, state) {},
             builder: (context, state) {
-              if (state is PatientsSuccessState) {
+              if (state is PatientsSuccessState || state is AddedPatientState) {
                 return Column(
                   children: [
                     Row(
@@ -306,7 +306,11 @@ class _ScheduleAppointmentPageState extends State<ScheduleAppointmentPage> {
                     )
                   ],
                 );
-              } else {
+              } else if (state is ErrorNewAppointmentState) {
+                return Center(
+                  child: Text("Error"),
+                );
+              } else if (state is LoadingNewAppointmentState) {
                 return Center(
                   child: Column(
                     children: [
@@ -331,6 +335,9 @@ class _ScheduleAppointmentPageState extends State<ScheduleAppointmentPage> {
                     ],
                   ),
                 );
+              } else {
+                print(state);
+                return Text("Hola");
               }
             },
           ),

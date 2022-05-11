@@ -59,7 +59,8 @@ class PatientsBloc extends Bloc<PatientsEvent, PatientsState> {
           id: "${patientsFilteredIDs[i]}",
           age: "${patientsFiltered[i]["age"]}",
           notes: patientsFiltered[i]["notes"],
-          profilePhoto: patientsFiltered[i]["profilePhoto"],
+          profilePhoto: patientsFiltered[i]["profilePhoto"] ??
+              'https://source.unsplash.com/random',
           gender: patientsFiltered[i]["gender"],
         );
         patients.add(patient);
@@ -69,6 +70,64 @@ class PatientsBloc extends Bloc<PatientsEvent, PatientsState> {
     } catch (e) {
       print("Error while getting patients -> ${e}");
       emit(PatientsErrorState());
+    }
+  }
+
+  Future<List<Patient>> getPatients() async {
+    try {
+      // Query to get patients from current user ****
+      var queryUser = await FirebaseFirestore.instance
+          .collection("userDoctor")
+          .doc("${FirebaseAuth.instance.currentUser!.uid}");
+      // get data from document
+      var docsRef = await queryUser.get();
+      List<dynamic> doctorPatients = docsRef.data()?["patients"] ?? [];
+      // ********************************************************
+
+      // Get all patients ***
+      var queryPatients =
+          await FirebaseFirestore.instance.collection("patients").get();
+      var allPatients = queryPatients.docs;
+      // ********************************************************
+
+      // Filter patients -> They must be included in doctor's patients list
+      List<Map<String, dynamic>> patientsFiltered = allPatients
+          .where((doc) => doctorPatients.contains(doc.id))
+          .map((doc) => doc.data().cast<String, dynamic>())
+          .toList();
+      // Save a list of IDS just to be able to create a patient instance
+      List<dynamic> patientsFilteredIDs = queryPatients.docs
+          .where((doc) => doctorPatients.contains(doc.id))
+          .map((doc) => doc.id)
+          .toList();
+      // ********************************************************
+      // Save the doctor's patients into a list and sent it back
+      final List<Patient> patients = [];
+      for (var i = 0; i < patientsFilteredIDs.length; i++) {
+        final Timestamp timestamp =
+            patientsFiltered[i]['lastVisited'] ?? Timestamp.now();
+
+        final DateTime date = timestamp.toDate();
+
+        Patient patient = Patient(
+          email: patientsFiltered[i]["email"],
+          phoneNumber: patientsFiltered[i]["phoneNumber"],
+          lastVisit: date,
+          name: patientsFiltered[i]["name"],
+          id: "${patientsFilteredIDs[i]}",
+          age: "${patientsFiltered[i]["age"]}",
+          notes: patientsFiltered[i]["notes"],
+          profilePhoto: patientsFiltered[i]["profilePhoto"] ??
+              'https://source.unsplash.com/random',
+          gender: patientsFiltered[i]["gender"],
+        );
+        patients.add(patient);
+      }
+      return patients;
+      // ********************************************************
+    } catch (e) {
+      print("Error while getting patients -> ${e}");
+      return [];
     }
   }
 
@@ -101,8 +160,8 @@ class PatientsBloc extends Bloc<PatientsEvent, PatientsState> {
 
       // We update the array in Firebase
       await queryUser.update({"patients": patientsIDs});
-
-      emit(AddedPatientState());
+      List<Patient> patients = await getPatients();
+      emit(PatientsSuccessState(patients: patients));
     } catch (e) {
       print("Error while adding patient -> ${e}");
       emit(PatientsErrorState());

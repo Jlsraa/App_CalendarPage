@@ -84,9 +84,14 @@ class _CreatePatientState extends State<CreatePatient> {
                               "phoneNumber": phoneNumberController.text,
                               "email": emailController.text,
                               "lastVisited": DateTime.now(),
+                              "profilePhoto":
+                                  'https://source.unsplash.com/random'
                             };
                             BlocProvider.of<PatientsBloc>(context).add(
                               AddPatientEvent(newPatient: newPatient),
+                            );
+                            BlocProvider.of<PatientsBloc>(context).add(
+                              GetAllPatientsEvent(),
                             );
                             nameController.clear();
                             ageController.clear();
